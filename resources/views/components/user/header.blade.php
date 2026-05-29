@@ -73,7 +73,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link font font-color" href="/daftarfilm">Daftar Film</a>
+                    <a class="nav-link font font-color" href="/listFilm">Daftar Film</a>
                 </li>
 
                 <li class="nav-item">

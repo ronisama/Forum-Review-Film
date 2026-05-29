@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Film;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
@@ -9,10 +10,7 @@ class FilmController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
@@ -33,10 +31,7 @@ class FilmController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -60,5 +55,11 @@ class FilmController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function daftarFilm()
+    {
+        $films = Film::all();
+
+        return view('pages.DaftarFilm', compact('films'));
     }
 }

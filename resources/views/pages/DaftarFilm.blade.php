@@ -34,82 +34,32 @@
         </div>
 
         <!-- CONTENT -->
-        <div class="col-md-10">
-            <div class="row g-4">
-                <div class="col-6 col-sm-5 col-md-4 col-lg-2">
+        <div class="row g-4">
 
-                    <div class="movie-card-list">
-                
-                        <img src="{{ asset('images/movie1.jpg') }}"
-                             class="img-fluid">
-                
-                        <div class="p-2">
-                
-                            <h6>The Boys</h6>
-                
-                            <small>2019 • TV Show</small>
-                
-                        </div>
-                
+            @foreach($films as $film)
+        
+            <div class="col-6 col-sm-5 col-md-4 col-lg-2">
+        
+                <div class="movie-card-list">
+        
+                    <img src="{{ asset('images/' . ($film->poster ?? 'default-movie.jpg')) }}" class="img-fluid">
+        
+                    <div class="p-2">
+        
+                        <h6>{{ $film->title }}</h6>
+        
+                        <small>
+                            {{ $film->release_year }} • {{ $film->type }}
+                        </small>
+        
                     </div>
-                
+        
                 </div>
-                <div class="col-6 col-sm-5 col-md-4 col-lg-2">
-
-                    <div class="movie-card-list">
-                
-                        <img src="{{ asset('images/movie1.jpg') }}"
-                             class="img-fluid">
-                
-                        <div class="p-2">
-                
-                            <h6>The Boys</h6>
-                
-                            <small>2019 • TV Show</small>
-                
-                        </div>
-                
-                    </div>
-                
-                </div>
-                <div class="col-6 col-sm-5 col-md-4 col-lg-2">
-
-                    <div class="movie-card-list">
-                
-                        <img src="{{ asset('images/movie1.jpg') }}"
-                             class="img-fluid">
-                
-                        <div class="p-2">
-                
-                            <h6>The Boys</h6>
-                
-                            <small>2019 • TV Show</small>
-                
-                        </div>
-                
-                    </div>
-                
-                </div>
-                <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-
-                    <div class="movie-card-list">
-                
-                        <img src="{{ asset('images/movie1.jpg') }}"
-                             class="img-fluid">
-                
-                        <div class="p-2">
-                
-                            <h6>The Boys</h6>
-                
-                            <small>2019 • TV Show</small>
-                
-                        </div>
-                
-                    </div>
-                
-                </div>
+        
             </div>
-            
+        
+            @endforeach
+        
         </div>
         
     </div>

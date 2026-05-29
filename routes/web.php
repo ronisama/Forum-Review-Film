@@ -10,9 +10,6 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('pages/home');
 });
-Route::get('/daftarfilm', function () {
-    return view('pages/DaftarFilm');
-});
 Route::get('/artikelfilm', function () {
     return view('pages/ArtikelFilm');
 });
