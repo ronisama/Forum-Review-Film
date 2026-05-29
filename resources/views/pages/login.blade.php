@@ -44,7 +44,7 @@
 
         <!-- KANAN: LOGIN -->
         <section class="col-md-6 d-flex align-items-center justify-content-center">
-
+            
             <form method="POST" action="/login" class="glass-card">
                 @csrf
         

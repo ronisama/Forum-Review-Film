@@ -11,29 +11,57 @@
         <!-- RIGHT SECTION WRAPPER -->
         <div class="d-flex align-items-center ms-auto">
 
-            <!-- ACCOUNT -->
-            <a class="nav-link rounded-circle p-2 d-flex align-items-center justify-content-center me-2"
-               href="/dashboard">
-
-                <img src="{{ asset('images/' . ($user->foto_profil ?? 'default.png'))}}"
-                     width="40"
-                     height="40"
-                     class="rounded-circle">
-
-            </a>
-
+            @auth
+                <!-- USER LOGIN -->
+                <a href="/dashboard"
+                   class="nav-link rounded-circle p-2 d-flex align-items-center justify-content-center me-2">
+        
+                    @if(Auth::user()->foto_profil)
+        
+                        <img src="{{ asset('images/' . Auth::user()->foto_profil) }}"
+                             width="40"
+                             height="40"
+                             class="rounded-circle object-fit-cover">
+        
+                    @else
+        
+                        <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
+                             style="width:40px; height:40px;">
+        
+                            <i class="bi bi-person text-white"></i>
+        
+                        </div>
+        
+                    @endif
+        
+                </a>
+        
+            @endauth
+        
+        
+            @guest
+                <!-- USER BELUM LOGIN -->
+                <a href="/login" class="btn btn-primary btn-sm me-2">
+                    Login
+                </a>
+        
+                <a href="/register" class="btn btn-outline-light btn-sm">
+                    Register
+                </a>
+            @endguest
+        
+        
             <!-- HAMBURGER -->
             <button class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent">
-
+        
                 <span class="navbar-toggler-icon"></span>
-
+        
             </button>
-
+        
         </div>
-
         <!-- MENU -->
         <div class="collapse navbar-collapse"
              id="navbarSupportedContent">

@@ -6,7 +6,7 @@
 
     <div class="row">
 
-        <!-- SIDEBAR -->
+        <!-- SIDEBAR kurang ini yak -->
         <div class="col-md-2">
             <div class="sidebar p-3">
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboradController;
+use App\Http\Controllers\FilmController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,3 +36,7 @@ Route::get('/dashboard', [DashboradController::class, 'index'])->middleware('aut
 
 //edit dashboard
 Route::put('/dashboard/{id}', [DashboradController::class, 'update']);
+
+
+//daftar film
+Route::get('/listFilm', [FilmController::class, 'daftarFilm']);
