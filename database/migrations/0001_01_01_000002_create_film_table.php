@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_film')->index();
             $table->longText('genre');
             $table->string('poster');
+            $table->timestamps();
         });
     }
 

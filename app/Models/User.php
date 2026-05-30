@@ -35,4 +35,14 @@ class User extends Authenticatable
         'foto_profil',
         'ketertarikan_genre'
     ];
+
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
+    }
+
+    public function komentars()
+    {
+        return $this->hasMany(Komentar::class);
+    }
 }

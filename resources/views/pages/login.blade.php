@@ -27,12 +27,12 @@
 
                     <!-- SLIDE 2 -->
                     <div class="carousel-item h-100">
-                        <img src="{{ asset('images/batman.jpg') }}"
+                        <img src="{{ asset('images/spiderman-brand-new-day.jpg') }}"
                              class="d-block w-100 h-100 object-fit-cover">
 
                         <div class="carousel-caption">
-                            <h1>THE BATMAN</h1>
-                            <p>Gotham dalam bayangan gelap.</p>
+                            <h1>SPIDERMAN BRAND NEW DAY</h1>
+                            <p>Perjalanan peter parker setelah dilupakan seluruh dunia bahwa dia spiderman.</p>
                         </div>
                     </div>
 

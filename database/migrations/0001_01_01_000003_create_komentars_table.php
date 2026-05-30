@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('komentar', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id('id');
-            $table->longText('isi_komentar');
+            $table->longText('isi_comments');
+            $table->timestamps();
 
             //nullable agar tidak error saat tidak ada komentar yang reply ke komentar lain
             $table->unsignedBigInteger('parent_id')->nullable();
@@ -23,7 +24,7 @@ return new class extends Migration
 
             //parentID untuk foreign key ke table sendiri
             $table->foreign('parent_id')
-                ->references('id')->on('komentar')
+                ->references('id')->on('comments')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             //fk users
@@ -44,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('komentar');
+        Schema::dropIfExists('comments');
     }
 };

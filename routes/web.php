@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\FilmController;
+use App\Http\Controllers\ThreadController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,9 +17,7 @@ Route::get('/artikelfilm', function () {
 // Route::get('/dashboard', function () {
 //     return view('pages/DashboardUser');
 // });
-Route::get('/feeds', function () {
-    return view('/pages/FeedsFilm');
-});
+
 
 //login register
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -37,3 +36,7 @@ Route::put('/dashboard/{id}', [DashboradController::class, 'update']);
 
 //daftar film
 Route::get('/listFilm', [FilmController::class, 'daftarFilm']);
+
+
+//thread
+Route::get('/feeds', [ThreadController::class, 'index']);
