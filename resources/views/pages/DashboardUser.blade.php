@@ -124,6 +124,21 @@
             Logout
         </button>
     </form>
+    {{-- hapus akun --}}
+    <form method="POST" action="/dashboard/{{ $user->id }}" onsubmit="return confirm('yakin ingin hapus akun?')">
+        @csrf
+        @method('DELETE')
+
+        <input type="password"
+                name="password"
+                class="form-control mb-2"
+                placeholder="masukkan password">
+
+        <button class="btn btn-danger">
+            <i class="bi bi-box-arrow-right"></i>
+            Hapus Akun
+        </button>
+    </form>
     
 
     <!-- FAVORITE GENRE kurang ini yak -->

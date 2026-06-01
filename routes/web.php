@@ -29,7 +29,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::get('/dashboard', [DashboradController::class, 'index'])->middleware('auth');
-
+Route::delete('/dashboard/{id}', [DashboradController::class, 'destroy'])->middleware('auth');
 //edit dashboard
 Route::put('/dashboard/{id}', [DashboradController::class, 'update']);
 

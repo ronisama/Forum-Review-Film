@@ -92,8 +92,32 @@ class DashboradController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        $user = User::findorFail($id);
+
+        if ($user->id !== Auth::id()) {
+            abort(403);
+        }
+
+        if (!Hash::check($request->password,  $user->password)) {
+
+            return back()->withErrors([
+                'password' => 'Password salah'
+            ]);
+        }
+
+        Auth::logout();
+
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with(
+            'success',
+            'Akun Berhasil Dihapus'
+        );
     }
 }
