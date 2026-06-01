@@ -9,6 +9,6 @@ class Film extends Model
 
     public function threads()
     {
-        return $this->hasMany(Thread::class);
+        return $this->hasMany(Thread::class, 'film_id');
     }
 }

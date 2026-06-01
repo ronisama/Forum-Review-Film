@@ -38,7 +38,8 @@
 
             @foreach($films as $film)
         
-            <div class="col-6 col-sm-5 col-md-4 col-lg-2">
+            <a href="/film/{{ $film->id }}"
+                class="text-decoration-none text-white">
         
                 <div class="movie-card-list">
         
@@ -56,7 +57,7 @@
         
                 </div>
         
-            </div>
+            </a>
         
             @endforeach
         

@@ -31,11 +31,16 @@ class FilmController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {}
+    public function show(string $id)
+    {
+        $film = Film::with([
+            'thread.user'
+        ])->findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+        return view('pages.detailFilm', ['film' => $film]);
+    }
+
+
     public function edit(string $id)
     {
         //

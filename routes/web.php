@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ThreadController;
+use App\Models\Film;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,8 +36,10 @@ Route::put('/dashboard/{id}', [DashboradController::class, 'update']);
 
 
 //daftar film
-Route::get('/listFilm', [FilmController::class, 'daftarFilm']);
+Route::get('/listFilm', [FilmController::class, 'daftarFilm'])->middleware('auth');
+Route::get('/listFilm/{id}', [FilmController::class, 'show'])->middleware('auth');
 
 
 //thread
-Route::get('/feeds', [ThreadController::class, 'index']);
+Route::get('/feeds', [ThreadController::class, 'index'])->middleware('auth');
+Route::get('/feeds/{id}', [ThreadController::class, ''])->middleware('auth');

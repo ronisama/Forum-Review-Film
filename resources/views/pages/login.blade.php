@@ -15,7 +15,7 @@
                 <div class="carousel-inner h-100">
 
                     <!-- SLIDE 1 -->
-                    <div class="carousel-item active h-100">
+                    <div class="carousel-item active">
                         <img src="{{ asset('images/hail-mary-wallpaper.jpg') }}"
                              class="d-block w-100 h-100 object-fit-cover">
 
@@ -26,7 +26,7 @@
                     </div>
 
                     <!-- SLIDE 2 -->
-                    <div class="carousel-item h-100">
+                    <div class="carousel-item">
                         <img src="{{ asset('images/spiderman-brand-new-day.jpg') }}"
                              class="d-block w-100 h-100 object-fit-cover">
 
