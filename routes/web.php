@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\ArtikelController;
+use App\Models\Artikel;
 use App\Models\Film;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
@@ -42,4 +44,10 @@ Route::get('/listFilm/{id}', [FilmController::class, 'show'])->middleware('auth'
 
 //thread
 Route::get('/feeds', [ThreadController::class, 'index'])->middleware('auth');
-Route::get('/feeds/{id}', [ThreadController::class, ''])->middleware('auth');
+Route::post('/feeds', [ThreadController::class, 'store'])->middleware('auth');
+Route::get('/feeds/{id}', [ThreadController::class, 'show'])->middleware('auth');
+
+
+//artikel
+Route::get('/artikel', [ArtikelController::class, 'index']);
+Route::get('/artikel/{id}', [ArtikelController::class, 'show']);

@@ -8,7 +8,7 @@
         <!-- LEFT CONTENT -->
         <div class="col-lg-8">
 
-            @foreach ($articles as $article)
+            @foreach ($artikel as $item)
 
                 <div class="article-list-card mb-4">
 
@@ -16,7 +16,7 @@
 
                         <!-- IMAGE -->
                         <div class="col-md-4">
-                            <img src="{{ $article->thumbnail }}"
+                            <img src="{{ $item->thumbnail }}"
                                  class="img-fluid article-image">
                         </div>
 
@@ -24,15 +24,15 @@
                         <div class="col-md-8">
 
                             <small class="text-secondary">
-                                {{ $article->category }}
+                                {{ $item->category }}
                             </small>
 
                             <h3 class="article-title mt-2">
-                                {{ $article->title }}
+                                {{ $item->title }}
                             </h3>
 
                             <p class="article-preview">
-                                {{ Str::limit($article->content, 150) }}
+                                {{ Str::limit($item->content, 150) }}
                             </p>
 
                             <a href="#"
@@ -50,7 +50,7 @@
 
             <!-- PAGINATION -->
             <div class="mt-4">
-                {{ $articles->links() }}
+                {{ $items->links() }}
             </div>
 
         </div>

@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('threads', function (Blueprint $table) {
             $table->id('id');
             $table->longText('isi_thread');
-            $table->string('judul_thread');
             $table->timestamps();
 
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('film_id');
+            $table->unsignedBigInteger('film_id')->nullable();
 
             $table->foreign('user_id')
                 ->references('id')->on('users')

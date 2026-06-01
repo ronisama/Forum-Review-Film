@@ -37,12 +37,10 @@ class ThreadController extends Controller
     {
         $validated = $request->validate([
             'film_id' => 'required|exists:films,id',
-            'judul_thread' => 'required|max:255',
             'isi_thread' => 'required'
         ]);
 
         Thread::create([
-            'judul_thread' => $validated['judul_thread'],
             'isi_thread' => $validated['isi_thread'],
             'film_id' => $validated['film_id'],
             'user_id' => Auth::id()
@@ -56,7 +54,15 @@ class ThreadController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $thread = Thread::with([
+            'user',
+            'film',
+            'komentars.user'
+        ])->findOrFail($id);
+
+        return view('pages.DetailThread', [
+            'thread' => $thread
+        ]);
     }
 
     /**
