@@ -72,6 +72,16 @@ class DashboradController extends Controller
 
             $user->foto_profil = $filename;
         }
+        if ($request->hapus_foto) {
+
+            $path = public_path('images/' . $user->foto_profil);
+
+            if (file_exists($path)) {
+                unlink($path);
+            }
+
+            $user->foto_profil = null;
+        }
         // Validasi data input
         $validatedData = $request->validate([
             'username' => 'required|string|max:255',

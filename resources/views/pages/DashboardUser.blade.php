@@ -29,7 +29,21 @@
                    id="profileImageInput"
                    name="foto_profil"
                    hidden>
+                <div>
+                @if($user->foto_profil)
 
+                   <button
+                       type="submit"
+                       name="hapus_foto"
+                       value="1"
+                       class="btn btn-link text-danger p-0 mt-2">
+                   
+                       Hapus Foto Profil
+                   
+                   </button>
+                   
+                @endif
+                </div>
         </div>
 
         <!-- PROFILE FORM -->
@@ -131,7 +145,7 @@
 
         <input type="password"
                 name="password"
-                class="form-control mb-2"
+                class="form-control mb-2 custom-input"
                 placeholder="masukkan password">
 
         <button class="btn btn-danger">

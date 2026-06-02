@@ -120,49 +120,49 @@
                 </form>
                  <!-- THREAD DATABASE -->
                 @foreach($threads as $thread)
-                <a href="/thread/{{ $thread->id }}"
-                    class="text-decoration-none text-white">
-                    <div class="glass-card p-3 mb-3">
+                    <a href="/thread/{{ $thread->id }}"
+                        class="text-decoration-none text-white">
+                        <div class="glass-card p-3 mb-3">
 
-                        <div class="d-flex align-items-center mb-2">
-                        @if($thread->user->foto_profil)
+                            <div class="d-flex align-items-center mb-2">
+                            @if($thread->user->foto_profil)
 
-                            <img src="{{ asset('images/' . $thread->user->foto_profil) }}"
-                                width="45"
-                                height="45"
-                                class="rounded-circle object-fit-cover">
-                        
-                        @else
-                        
-                            <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
-                                style="width:45px; height:45px;">
-                        
-                                <i class="bi bi-person text-white"></i>
-                        
-                            </div>
-                        
-                        @endif
-                            <div class="ms-2">
+                                <img src="{{ asset('images/' . $thread->user->foto_profil) }}"
+                                    width="45"
+                                    height="45"
+                                    class="rounded-circle object-fit-cover">
+                            
+                            @else
+                            
+                                <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
+                                    style="width:45px; height:45px;">
+                            
+                                    <i class="bi bi-person text-white"></i>
+                            
+                                </div>
+                            
+                            @endif
+                                <div class="ms-2">
 
-                                <strong>
-                                    {{ $thread->user->username }}
-                                </strong>
+                                    <strong>
+                                        {{ $thread->user->username }}
+                                    </strong>
 
-                                <div class="text-muted">
-                                    {{ $thread->film->nama_film }}
+                                    <div class="text-muted">
+                                        {{ $thread->film->nama_film }}
+                                    </div>
+
                                 </div>
 
                             </div>
 
+                            <p>
+                                {{ $thread->isi_thread }}
+                            </p>
+
                         </div>
-
-                        <p>
-                            {{ $thread->isi_thread }}
-                        </p>
-
-                    </div>
-                </a>
-            @endforeach
+                    </a>
+                @endforeach
             
             </div>
         </div>

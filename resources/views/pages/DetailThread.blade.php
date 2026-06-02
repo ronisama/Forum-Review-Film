@@ -15,7 +15,7 @@
             <span class="mx-2">•</span>
 
             <span>
-                {{ $thread->film->title }}
+                {{ $thread->film->nama_film }}
             </span>
 
         </div>
