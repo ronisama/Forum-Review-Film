@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Komentar;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class KomentarController extends Controller
@@ -27,7 +29,19 @@ class KomentarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'isi_komentar' => 'required',
+            'thread_id' => 'required|exists:threads,id'
+        ]);
+
+        Komentar::create([
+            'isi_komentar' => $validated['isi_komentar'],
+            'thread_id' => $validated['thread_id'],
+            'user_id' => Auth::id(),
+            'parent_id' => $request->parent_id
+        ]);
+
+        return back();
     }
 
     /**

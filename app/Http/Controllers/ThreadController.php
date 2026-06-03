@@ -57,12 +57,12 @@ class ThreadController extends Controller
         $thread = Thread::with([
             'user',
             'film',
-            'komentars.user'
+            'komentars' => function ($query) {
+                $query->whereNull('parent_id');
+            },
+            'komentars.user',
+            'komentars.replies.user'
         ])->findOrFail($id);
-
-        return view('pages.DetailThread', [
-            'thread' => $thread
-        ]);
     }
 
     /**

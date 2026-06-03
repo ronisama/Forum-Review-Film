@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\KomentarController;
 use App\Models\Artikel;
 use App\Models\Film;
 use GuzzleHttp\Middleware;
@@ -47,6 +48,8 @@ Route::get('/feeds', [ThreadController::class, 'index'])->middleware('auth');
 Route::post('/feeds', [ThreadController::class, 'store'])->middleware('auth');
 Route::get('/feeds/{id}', [ThreadController::class, 'show'])->middleware('auth');
 
+//komentar
+Route::post('/komentar', [KomentarController::class, 'store']);
 
 //artikel
 Route::get('/artikel', [ArtikelController::class, 'index']);

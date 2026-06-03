@@ -26,7 +26,7 @@
                     <div class="ms-2">
 
                         <h6 class="mb-1">
-                            {{ $film->title }}
+                            {{ $film->nama_film }}
                         </h6>
 
                         <small>
@@ -98,7 +98,7 @@
                                 @foreach($films as $film)
             
                                 <option value="{{ $film->id }}">
-                                    {{ $film->title }}
+                                    {{ $film->nama_film }}
                                 </option>
             
                                 @endforeach
@@ -119,7 +119,8 @@
             
                 </form>
                  <!-- THREAD DATABASE -->
-                @foreach($threads as $thread)
+            </div>
+            @foreach($threads as $thread)
                     <a href="/thread/{{ $thread->id }}"
                         class="text-decoration-none text-white">
                         <div class="glass-card p-3 mb-3">
@@ -157,14 +158,12 @@
                             </div>
 
                             <p>
-                                {{ $thread->isi_thread }}
+                                {{ Str::limit($thread->isi_thread, 150) }}
                             </p>
 
                         </div>
                     </a>
                 @endforeach
-            
-            </div>
         </div>
 
     </div>
@@ -184,7 +183,7 @@
             @foreach($films as $film)
 
                 <option value="{{ $film->id }}">
-                    {{ $film->title }}
+                    {{ $film->nama_film }}
                 </option>
 
             @endforeach
@@ -230,7 +229,7 @@
         <small>
             {{ $thread->user->username }}
             •
-            {{ $thread->film->title }}
+            {{ $thread->film->nama_film }}
         </small>
 
         <p class="mt-2">
