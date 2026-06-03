@@ -26,7 +26,7 @@
                     <div class="ms-2">
 
                         <h6 class="mb-1">
-                            {{ $film->nama_film }}
+                            {{ Str::limit($film->nama_film, 25) }}
                         </h6>
 
                         <small>
@@ -121,7 +121,7 @@
                  <!-- THREAD DATABASE -->
             </div>
             @foreach($threads as $thread)
-                    <a href="/thread/{{ $thread->id }}"
+                    <a href="/feeds/{{ $thread->id }}"
                         class="text-decoration-none text-white">
                         <div class="glass-card p-3 mb-3">
 

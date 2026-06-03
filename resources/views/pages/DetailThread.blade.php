@@ -41,7 +41,7 @@
                     value="{{ $thread->id }}">
         
                 <textarea
-                    name="isi_komentar"
+                    name="isi_komentars"
                     class="form-control mb-3"
                     rows="3"
                     placeholder="Tulis komentar..."></textarea>
@@ -86,16 +86,13 @@
                         <strong>
                             {{ $komentar->user->username }}
                         </strong>
-                
+
                     </div>
                 
                 </div>
-                <strong>
-                    {{ $komentar->user->username }}
-                </strong>
 
                 <p class="mb-0 mt-2">
-                    {{ $komentar->isi_komentar }}
+                    {{ $komentar->isi_komentars}}
                 </p>
                 {{-- tombol balas komentar --}}
                 <button
@@ -126,7 +123,7 @@
                             value="{{ $komentar->id }}">
 
                         <textarea
-                            name="isi_komentar"
+                            name="isi_komentars"
                             class="form-control mb-2"
                             rows="2"></textarea>
 
@@ -142,23 +139,23 @@
             </div>
             @foreach($komentar->replies as $reply)
 
-    <div class="ms-5 mt-3">
+            <div class="ms-5 mt-3">
 
-        <div class="glass-card p-2">
+                <div class="glass-card p-2">
 
-            <strong>
-                {{ $reply->user->username }}
-            </strong>
+                    <strong>
+                        {{ $reply->user->username }}
+                    </strong>
 
-            <p class="mb-0 mt-1">
-                {{ $reply->isi_komentar }}
-            </p>
+                    <p class="mb-0 mt-1">
+                        {{ $reply->isi_komentars }}
+                    </p>
 
-        </div>
+                </div>
 
-    </div>
+            </div>
 
-@endforeach
+            @endforeach
 
         @empty
 

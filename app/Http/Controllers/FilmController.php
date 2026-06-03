@@ -34,7 +34,7 @@ class FilmController extends Controller
     public function show(string $id)
     {
         $film = Film::with([
-            'thread.user'
+            'threads.user'
         ])->findOrFail($id);
 
         return view('pages.detailFilm', ['film' => $film]);

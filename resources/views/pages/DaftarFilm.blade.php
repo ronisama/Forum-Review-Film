@@ -3,66 +3,62 @@
 @section('maincontent')
 
 <div class="container-fluid custom-padding">
-
     <div class="row">
 
-        <!-- SIDEBAR kurang ini yak -->
+        <!-- Sidebar -->
         <div class="col-md-2">
             <div class="sidebar p-3">
+                <h5>Genre</h5>
 
-                <h5 class="font-color font">Genre</h5>
-            
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox">
-                    <label class="form-check-label font-color font">
+                    <label class="form-check-label">
                         Action
                     </label>
                 </div>
-            
+
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox">
-                    <label class="form-check-label font-color font">
+                    <label class="form-check-label">
                         Horror
                     </label>
                 </div>
-            
-                <button class="btn btn-primary w-100 mt-3">
-                    Terapkan
-                </button>
-            
             </div>
         </div>
 
-        <!-- CONTENT -->
-        <div class="row g-4">
+        <!-- Daftar Film -->
+        <div class="col-md-10">
+            <div class="row g-4">
 
-            @foreach($films as $film)
-        
-            <a href="/film/{{ $film->id }}"
-                class="text-decoration-none text-white">
-        
-                <div class="movie-card-list">
-        
-                    <img src="{{ asset('images/' . ($film->poster ?? 'default-movie.jpg')) }}" class="img-fluid">
-        
-                    <div class="p-2">
-        
-                        <h6>{{ $film->title }}</h6>
-        
-                        <small>
-                            {{ $film->release_year }} • {{ $film->type }}
-                        </small>
-        
-                    </div>
-        
+                @foreach($films as $film)
+
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+
+                    <a href="/listFilm/{{ $film->id }}"
+                        class="text-decoration-none text-white">
+
+                        <div class="movie-card">
+
+                            <img src="{{ asset('images/' . ($film->poster ?? 'default-movie.jpg')) }}"
+                                class="img-fluid">
+
+                                <div class="movie-info">
+                                    <h6>{{ Str::limit($film->nama_film, 30) }}</h6>
+                                    <small>
+                                        {{ $film->release_year }} • {{ $film->type }}
+                                    </small>
+                                </div>
+
+                        </div>
+
+                    </a>
+
                 </div>
-        
-            </a>
-        
-            @endforeach
-        
-        </div>
-        
-    </div>
 
+                @endforeach
+
+            </div>
+        </div>
+
+    </div>
 </div>

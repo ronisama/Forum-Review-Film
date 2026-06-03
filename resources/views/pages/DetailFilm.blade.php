@@ -15,7 +15,7 @@
 
         <div class="col-md-8">
 
-            <h1>{{ $film->title }}</h1>
+            <h1>{{ $film->nama_film }}</h1>
 
             <p>
                 {{ $film->release_year }}

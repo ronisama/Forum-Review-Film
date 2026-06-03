@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Komentar extends Model
 {
     protected $fillable = [
-        'isi_komentar',
+        'isi_komentars',
         'parent_id',
         'user_id',
         'thread_id'

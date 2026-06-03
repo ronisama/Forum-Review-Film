@@ -63,6 +63,9 @@ class ThreadController extends Controller
             'komentars.user',
             'komentars.replies.user'
         ])->findOrFail($id);
+        return view('pages.DetailThread', [
+            'thread' => $thread
+        ]);
     }
 
     /**
