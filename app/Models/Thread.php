@@ -25,6 +25,7 @@ class Thread extends Model
 
     public function komentars()
     {
-        return $this->hasMany(Komentar::class);
+        return $this->hasMany(Komentar::class)
+            ->latest();
     }
 }

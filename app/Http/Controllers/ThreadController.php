@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Film;
+use App\Models\Komentar;
 use App\Models\Thread;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class ThreadController extends Controller
             'films' => Film::all(),
             'threads' => Thread::with(['user', 'film'])
                 ->latest()
-                ->get()
+                ->paginate(5)
         ]);
     }
 
@@ -56,15 +57,21 @@ class ThreadController extends Controller
     {
         $thread = Thread::with([
             'user',
-            'film',
-            'komentars' => function ($query) {
-                $query->whereNull('parent_id');
-            },
-            'komentars.user',
-            'komentars.replies.user'
+            'film'
         ])->findOrFail($id);
+
+        $komentars = Komentar::with([
+            'user',
+            'replies.user'
+        ])
+            ->where('thread_id', $thread->id)
+            ->whereNull('parent_id')
+            ->latest()
+            ->paginate(10);
+
         return view('pages.DetailThread', [
-            'thread' => $thread
+            'thread' => $thread,
+            'komentars' => $komentars
         ]);
     }
 

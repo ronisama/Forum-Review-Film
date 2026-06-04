@@ -62,7 +62,13 @@
                                 width="50"
                                 height="50"
                                 class="rounded-circle object-fit-cover">
+                        @else
+                        <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
+                             style="width:40px; height:40px;">
         
+                            <i class="bi bi-person text-white"></i>
+        
+                        </div>
                         @endif
         
                     </div>
@@ -70,6 +76,7 @@
                     <div class="flex-grow-1">
         
                         <textarea
+                            id="threadInput"
                             name="isi_thread"
                             rows="1"
                             class="thread-input"
@@ -124,7 +131,13 @@
                                     width="50"
                                     height="50"
                                     class="rounded-circle object-fit-cover">
+                            @else
+                                <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
+                                    style="width:40px; height:40px;">
             
+                                    <i class="bi bi-person text-white"></i>
+            
+                                </div>
                             @endif
             
                         </div>
@@ -137,7 +150,7 @@
                                     {{ $thread->user->username }}
                                 </strong>
             
-                                <span class="text-muted ms-2">
+                                <span class="ms-2">
             
                                     {{ $thread->created_at->diffForHumans() }}
             
@@ -156,7 +169,7 @@
                                 {{ Str::limit($thread->isi_thread, 180) }}
             
                             </p>
-                            <div class="mt-2 text-muted small">
+                            <div class="mt-2 small">
     
                                 <i class="bi bi-chat"></i>
                             
@@ -172,7 +185,9 @@
             </a>
             
         @endforeach
-    
+        <div class="mt-3">
+            {{ $threads->links() }}
+        </div>
         
         </div>
 
@@ -180,7 +195,14 @@
 
 </div>
 
-
+<script>
+    const textarea = document.getElementById('threadInput');
+    
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+</script>
 {{-- 
 <form method="POST" action="/feeds">
     @csrf

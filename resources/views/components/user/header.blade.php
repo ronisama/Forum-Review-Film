@@ -35,6 +35,22 @@
                     @endif
         
                 </a>
+                <a href="/notifications" class="position-relative">
+
+                    <i class="bi bi-bell"></i>
+                
+                    @if($jumlahNotif > 0)
+                
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                
+                            {{ $jumlahNotif }}
+                
+                        </span>
+                
+                    @endif
+                
+                </a>
         
             @endauth
         

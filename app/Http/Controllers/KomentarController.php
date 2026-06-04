@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Komentar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Notification;
+use App\Models\User;
 
 class KomentarController extends Controller
 {
@@ -34,13 +36,41 @@ class KomentarController extends Controller
             'thread_id' => 'required|exists:threads,id'
         ]);
 
-        Komentar::create([
+        $komentar = Komentar::create([
             'isi_komentars' => $validated['isi_komentars'],
             'thread_id' => $validated['thread_id'],
             'user_id' => Auth::id(),
             'parent_id' => $request->parent_id
         ]);
 
+        preg_match_all(
+            '/@([A-Za-z0-9_]+)/',
+            $komentar->isi_komentars,
+            $matches
+        );
+
+        foreach ($matches[1] as $username) {
+
+            $mentionedUser = User::where(
+                'username',
+                $username
+            )->first();
+
+            if (
+                $mentionedUser &&
+                $mentionedUser->id != Auth::id()
+            ) {
+
+                Notification::create([
+                    'user_id' => $mentionedUser->id,
+                    'pengirim_id' => Auth::id(),
+                    'thread_id' => $komentar->thread_id,
+                    'komentar_id' => $komentar->id,
+                    'tipe' => 'mention',
+                    'pesan' => $komentar->isi_komentars
+                ]);
+            }
+        }
         return back();
     }
 

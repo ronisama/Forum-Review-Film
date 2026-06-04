@@ -42,7 +42,7 @@
                         {{ $thread->user->username }}
                     </strong>
     
-                    <span class="text-muted ms-2">
+                    <span class="ms-2">
                         • {{ $thread->created_at->diffForHumans() }}
                     </span>
     
@@ -79,11 +79,12 @@
                     value="{{ $thread->id }}">
         
                 <textarea
+                    id="komentarsInput"
                     name="isi_komentars"
-                    class="form-control mb-3"
-                    rows="3"
-                    placeholder="Tulis komentar..."></textarea>
-        
+                    rows="1"
+                    class="thread-input"
+                    placeholder="Apa yang ingin kamu bahas hari ini?"></textarea>
+
                 <button class="btn btn-primary">
                     Kirim Komentar
                 </button>
@@ -92,9 +93,9 @@
         
         </div>
         {{-- list komentar --}}
-        <h4>Komentar</h4>
+        <h4 class="font-color">Komentar</h4>
 
-        @forelse($thread->komentars as $komentar)
+        @forelse($komentars as $komentar)
 
             <div class="glass-card p-3 mb-2">
                 <div class="d-flex align-items-center">
@@ -105,8 +106,8 @@
                             src="{{ asset('images/' . $komentar->user->foto_profil) }}"
                             width="40"
                             height="40"
-                            class="rounded-circle">
-                
+                            class="rounded-circle object-fit-cover">
+                        
                     @else
                 
                         <div
@@ -119,18 +120,26 @@
                 
                     @endif
                 
-                    <div class="ms-2">
-                
-                        <strong>
-                            {{ $komentar->user->username }}
-                        </strong>
-
-                    </div>
+                    <div class="d-flex align-items-center ms-3">
+    
+                    <strong>
+                        {{ $komentar->user->username }}
+                    </strong>
+    
+                    <span class="ms-2">
+                        • {{ $komentar->created_at->diffForHumans() }}
+                    </span>
+    
+                </div>
                 
                 </div>
 
                 <p class="mb-0 mt-2">
-                    {{ $komentar->isi_komentars}}
+                    {!! preg_replace(
+                        '/@([A-Za-z0-9_]+)/',
+                        '<a href="/user/$1" class="text-info text-decoration-none">@$1</a>',
+                        e($komentar->isi_komentars)
+                    ) !!}
                 </p>
                 {{-- tombol balas komentar --}}
                 <button
@@ -177,7 +186,7 @@
             </div>
             @foreach($komentar->replies as $reply)
 
-            <div class="ms-5 mt-3">
+            <div class="ms-5 mt-3 mb-3">
 
                 <div class="glass-card p-2">
 
@@ -185,10 +194,14 @@
                         {{ $reply->user->username }}
                     </strong>
 
-                    <p class="mb-0 mt-1">
-                        {{ $reply->isi_komentars }}
+                    <p class="mb-0 mt-2">
+                        {!! preg_replace(
+                            '/@([A-Za-z0-9_]+)/',
+                            '<span class="text-info">@$1</span>',
+                            e($reply->isi_komentars)
+                        ) !!}
                     </p>
-
+                    
                 </div>
 
             </div>
@@ -197,12 +210,21 @@
 
         @empty
 
-            <p>Belum ada komentar.</p>
+            <p class="font font-color">Belum ada komentar.</p>
 
         @endforelse
-
+        <div class="mt-3">
+            {{ $komentars->links() }}
+        </div>
     </div>
 
 </div>
-
+<script>
+    const textarea = document.getElementById('komentarsInput');
+    
+    textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+</script>
 @endsection

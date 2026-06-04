@@ -7,6 +7,8 @@ use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\KomentarController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\UserController;
 use App\Models\Artikel;
 use App\Models\Film;
 use GuzzleHttp\Middleware;
@@ -56,3 +58,10 @@ Route::post('/komentar', [KomentarController::class, 'store']);
 //artikel
 Route::get('/artikel', [ArtikelController::class, 'index']);
 Route::get('/artikel/{id}', [ArtikelController::class, 'show']);
+
+
+//notif
+Route::get('/notifications', [NotificationController::class, 'index'])->middleware('auth');
+
+// user
+Route::get('/user/{username}', [UserController::class, 'show']);

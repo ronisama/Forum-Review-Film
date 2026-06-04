@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -33,9 +34,17 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($username)
     {
-        //
+        $user = User::with([
+            'threads.film'
+        ])
+            ->where('username', $username)
+            ->firstOrFail();
+
+        return view('pages.ProfileUser', [
+            'user' => $user
+        ]);
     }
 
     /**

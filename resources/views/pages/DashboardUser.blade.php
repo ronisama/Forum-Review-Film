@@ -214,7 +214,7 @@
                             </strong>
                 
                             <p class="mt-2 mb-0">
-                                {{ Str::limit($thread->isi_thread, 120) }}
+                                {{ Str::limit($thread->isi_thread, 99) }}
                             </p>
                         </div>
                 
