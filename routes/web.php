@@ -31,11 +31,13 @@ Route::get('/register', [AuthController::class, 'showRegister']);
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout']);
-
+//dasboard 
 Route::get('/dashboard', [DashboradController::class, 'index'])->middleware('auth');
 Route::delete('/dashboard/{id}', [DashboradController::class, 'destroy'])->middleware('auth');
 //edit dashboard
 Route::put('/dashboard/{id}', [DashboradController::class, 'update']);
+//hapus threads di dashboard
+Route::delete('/feeds/{id}', [ThreadController::class, 'destroy']);
 
 
 //daftar film

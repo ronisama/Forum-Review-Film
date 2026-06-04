@@ -186,19 +186,78 @@
     
     {{-- threads list user --}}
     <div class="dashboard-section mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="text-white">
-                Threads
-            </h4>
-            <div class="genre-wrapper">
+        <div class="dashboard-section mb-4">
 
-                <span class="genre-chip">Sci-Fi</span>
-                <span class="genre-chip">Thriller</span>
-                <span class="genre-chip">Action</span>
-                <span class="genre-chip">Fantasy</span>
-    
-            </div>
+            <h4 class="text-white mb-3">
+                Thread Saya
+            </h4>
+            <div class="d-flex gap-3 mb-3">
+
+                <div class="genre-chip">
+                    Total Thread: {{ $threads->count() }}
+                </div>
             
+            </div>
+        
+            @forelse($threads as $thread)
+        
+                <a href="/feeds/{{ $thread->id }}"
+                   class="text-decoration-none text-white">
+        
+                   <div class="glass-card p-3 mb-3">
+
+                    <div class="d-flex justify-content-between align-items-start">
+                
+                        <div>
+                            <strong>
+                                {{ $thread->film->nama_film }}
+                            </strong>
+                
+                            <p class="mt-2 mb-0">
+                                {{ Str::limit($thread->isi_thread, 120) }}
+                            </p>
+                        </div>
+                
+                        <div class="text-end">
+                
+                            <small class="d-block">
+                                {{ $thread->created_at->diffForHumans() }}
+                            </small>
+                
+                            <form action="/feeds/{{ $thread->id }}"
+                                  method="POST"
+                                  onsubmit="return confirm('Yakin ingin menghapus thread ini?')">
+                
+                                @csrf
+                                @method('DELETE')
+                
+                                <button class="btn btn-sm btn-outline-danger mt-2">
+                                    Hapus 
+                                        <i class="bi bi-trash"></i>
+                                </button>
+                
+                            </form>
+                
+                        </div>
+                
+                    </div>
+                
+                </div>
+        
+                </a>
+        
+            @empty
+        
+                <div class="glass-card p-3">
+        
+                    <p class="mb-0">
+                        Kamu belum membuat thread.
+                    </p>
+        
+                </div>
+        
+            @endforelse
+        
         </div>
     </div>
 

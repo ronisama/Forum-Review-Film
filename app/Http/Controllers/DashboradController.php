@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Thread;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +16,11 @@ class DashboradController extends Controller
     public function index()
     {
         return view('pages/dashboardUser', [
-            'user' => Auth::user()
+            'user' => Auth::user(),
+            'threads' => Thread::with('film')
+                ->where('user_id', Auth::id())
+                ->latest()
+                ->get()
         ]);
     }
 
@@ -40,10 +45,13 @@ class DashboradController extends Controller
      */
     public function show(string $id) {}
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id) {}
+
+    // public function deleteThread(string $id)
+    // {
+    //     $user = User::findorFail($id);
+
+
+    // }
 
     /**
      * Update the specified resource in storage.

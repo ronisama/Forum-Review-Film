@@ -4,28 +4,66 @@
 
 <div class="container mt-5 pt-5">
 
-    <div class="glass-card p-4">
+    <div class="glass-card p-4 mb-4">
 
-        <div class="d-flex align-items-center mb-3">
-            <div class="text-muted small">
-                {{ $thread->created_at->diffForHumans() }}
+        <div class="d-flex">
+    
+            {{-- Avatar --}}
+            <div class="me-3">
+    
+                @if($thread->user->foto_profil)
+    
+                    <img
+                        src="{{ asset('images/' . $thread->user->foto_profil) }}"
+                        width="50"
+                        height="50"
+                        class="rounded-circle object-fit-cover">
+    
+                @else
+    
+                    <div
+                        class="rounded-circle bg-secondary d-flex align-items-center justify-content-center"
+                        style="width:50px;height:50px;">
+    
+                        <i class="bi bi-person text-white"></i>
+    
+                    </div>
+    
+                @endif
+    
             </div>
-            <strong>
-                {{ $thread->user->username }}
-            </strong>
-
-            <span class="mx-2">•</span>
-
-            <span>
-                {{ $thread->film->nama_film }}
-            </span>
-
+    
+            {{-- Konten --}}
+            <div class="flex-grow-1">
+    
+                <div class="d-flex align-items-center">
+    
+                    <strong>
+                        {{ $thread->user->username }}
+                    </strong>
+    
+                    <span class="text-muted ms-2">
+                        • {{ $thread->created_at->diffForHumans() }}
+                    </span>
+    
+                </div>
+    
+                <div class="text-info small mb-2">
+    
+                    {{ $thread->film->nama_film }}
+    
+                </div>
+    
+                <div class="mb-3">
+    
+                    {{ $thread->isi_thread }}
+    
+                </div>
+    
+            </div>
+    
         </div>
-
-        <p>
-            {{ $thread->isi_thread }}
-        </p>
-
+    
     </div>
 
     <div class="mt-4">

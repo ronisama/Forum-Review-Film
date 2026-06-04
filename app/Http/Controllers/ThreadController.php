@@ -89,6 +89,17 @@ class ThreadController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $thread = Thread::findOrFail($id);
+
+        if ($thread->user_id != Auth::id()) {
+            abort(403);
+        }
+
+        $thread->delete();
+
+        return back()->with(
+            'success',
+            'Thread berhasil dihapus'
+        );
     }
 }

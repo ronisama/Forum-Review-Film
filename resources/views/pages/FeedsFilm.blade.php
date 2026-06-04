@@ -44,126 +44,136 @@
         </div>
 
         <!-- FEED -->
-        <div class="col-lg-9">
-            <div class="glass-card p-3 mb-4">
+        <div class="glass-card-feed p-3 mb-0">
 
-                <form action="/feeds"
-                      method="POST">
+            <form action="/feeds" method="POST">
+        
+                @csrf
+        
+                <div class="d-flex">
+        
+                    {{-- avatar --}}
+                    <div class="me-3">
+        
+                        @if(Auth::user()->foto_profil)
+        
+                            <img
+                                src="{{ asset('images/' . Auth::user()->foto_profil) }}"
+                                width="50"
+                                height="50"
+                                class="rounded-circle object-fit-cover">
+        
+                        @endif
+        
+                    </div>
+        
+                    <div class="flex-grow-1">
+        
+                        <textarea
+                            name="isi_thread"
+                            rows="1"
+                            class="thread-input"
+                            placeholder="Apa yang ingin kamu bahas hari ini?"></textarea>
             
-                    @csrf
+                        <div class="d-flex justify-content-between mt-3">
+        
+                            <select
+                                name="film_id"
+                                class="form-select w-50">
+        
+                                @foreach($films as $film)
+        
+                                    <option value="{{ $film->id }}">
+                                        {{ $film->nama_film }}
+                                    </option>
+        
+                                @endforeach
+        
+                            </select>
+        
+                            <button
+                                class="btn btn-primary">
+        
+                                Posting
+        
+                            </button>
+        
+                        </div>
+        
+                    </div>
+        
+                </div>
+        
+            </form>
+            @foreach($threads as $thread)
+
+            <a href="/feeds/{{ $thread->id }}"
+               class="text-decoration-none text-white">
+            
+                <div class="feed-item">
             
                     <div class="d-flex">
-                    @if(Auth::check() && Auth::user()->foto_profil)
-
-                        <img src="{{ asset('images/' . Auth::user()->foto_profil) }}"
-                             width="45"
-                             height="45"
-                             class="rounded-circle object-fit-cover">
-                    
-                    @else
-                    
-                        <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
-                             style="width:40px; height:40px;">
-                    
-                            <i class="bi bi-person text-white"></i>
-                    
-                        </div>
-                    
-                    @endif
-                        <div class="flex-grow-1 ms-3">
             
-                            <textarea
-                                class="form-control border-0"
-                                name="isi_thread"
-                                rows="4"
-                                placeholder="Apa yang ingin kamu bahas hari ini?"></textarea>
+                        {{-- avatar --}}
+                        <div class="me-3">
             
-                        </div>
-            
-                    </div>
-            
-                    <hr>
-            
-                    <div class="row">
-            
-                        <div class="col-md-8">
-            
-                            <select class="form-select"
-                                    name="film_id">
-            
-                                <option>
-                                    Pilih Film
-                                </option>
-            
-                                @foreach($films as $film)
-            
-                                <option value="{{ $film->id }}">
-                                    {{ $film->nama_film }}
-                                </option>
-            
-                                @endforeach
-            
-                            </select>
-            
-                        </div>
-            
-                        <div class="col-md-4 text-end">
-            
-                            <button class="btn btn-primary">
-                                Posting
-                            </button>
-            
-                        </div>
-            
-                    </div>
-            
-                </form>
-                 <!-- THREAD DATABASE -->
-            </div>
-            @foreach($threads as $thread)
-                    <a href="/feeds/{{ $thread->id }}"
-                        class="text-decoration-none text-white">
-                        <div class="glass-card p-3 mb-3">
-
-                            <div class="d-flex align-items-center mb-2">
                             @if($thread->user->foto_profil)
-
-                                <img src="{{ asset('images/' . $thread->user->foto_profil) }}"
-                                    width="45"
-                                    height="45"
+            
+                                <img
+                                    src="{{ asset('images/' . $thread->user->foto_profil) }}"
+                                    width="50"
+                                    height="50"
                                     class="rounded-circle object-fit-cover">
-                            
-                            @else
-                            
-                                <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
-                                    style="width:45px; height:45px;">
-                            
-                                    <i class="bi bi-person text-white"></i>
-                            
-                                </div>
-                            
+            
                             @endif
-                                <div class="ms-2">
-
-                                    <strong>
-                                        {{ $thread->user->username }}
-                                    </strong>
-
-                                    <div class="text-muted">
-                                        {{ $thread->film->nama_film }}
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <p>
-                                {{ Str::limit($thread->isi_thread, 150) }}
-                            </p>
-
+            
                         </div>
-                    </a>
-                @endforeach
+            
+                        <div class="flex-grow-1">
+            
+                            <div>
+            
+                                <strong>
+                                    {{ $thread->user->username }}
+                                </strong>
+            
+                                <span class="text-muted ms-2">
+            
+                                    {{ $thread->created_at->diffForHumans() }}
+            
+                                </span>
+            
+                            </div>
+            
+                            <div class="small text-info mb-2">
+            
+                                {{ $thread->film->nama_film }}
+            
+                            </div>
+            
+                            <p>
+            
+                                {{ Str::limit($thread->isi_thread, 180) }}
+            
+                            </p>
+                            <div class="mt-2 text-muted small">
+    
+                                <i class="bi bi-chat"></i>
+                            
+                                {{ $thread->komentars->count() }}
+                            
+                            </div>
+                        </div>
+            
+                    </div>
+            
+                </div>
+            
+            </a>
+            
+        @endforeach
+    
+        
         </div>
 
     </div>

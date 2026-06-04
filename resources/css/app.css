@@ -321,3 +321,44 @@ hr {
 .movie-card:hover {
     transform: scale(1.05);
 }
+
+.glass-card-feed{
+    width: 70%;
+    padding: 30px;
+    border-radius: 0%;
+
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+.feed-item{
+    padding:20px;
+    border-bottom:1px solid rgba(255,255,255,.1);
+    transition:.2s;
+}
+
+.feed-item:hover{
+    background:rgba(255,255,255,.03);
+}
+
+.feed-item p{
+    margin-bottom:0;
+}
+
+.thread-input{
+    width:100%;
+    border:none;
+    outline:none;
+    resize:none;
+    background:transparent;
+    color:white;
+    font-size:1.2rem;
+}
+
+.thread-input::placeholder{
+    color:#888;
+}
