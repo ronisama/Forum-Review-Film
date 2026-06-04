@@ -39,10 +39,10 @@
 
                         <div class="movie-card">
 
-                            <img src="{{ asset('images/' . ($film->poster ?? 'default-movie.jpg')) }}"
+                            <img src="https://image.tmdb.org/t/p/w500{{ $film->poster }}"
                                 class="img-fluid">
 
-                                <div class="movie-info">
+                                <div class="movie-info ms-2">
                                     <h6>{{ Str::limit($film->nama_film, 30) }}</h6>
                                     <small>
                                         {{ $film->release_year }} • {{ $film->type }}
@@ -52,6 +52,30 @@
                         </div>
 
                     </a>
+                    @auth
+                    @if(Auth::user()->role === 'admin')
+
+                        <form
+                            action="{{ route('films.destroy', $film->id) }}"
+                            method="POST"
+                            class="position-relative bottom-0 end-0 m-3">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                class="btn btn-danger btn-sm"
+                                onclick="return confirm('Hapus film ini?')">
+
+                                <i class="bi bi-trash"></i>
+                                Hapus
+
+                            </button>
+
+                        </form>
+
+                    @endif
+                    @endauth
 
                 </div>
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('foto_profil')->nullable();
             $table->string('favorit_genre')->nullable();
+            $table->string('role')->default('user');
             $table->rememberToken();
             $table->timestamps();
         });

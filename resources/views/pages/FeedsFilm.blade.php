@@ -18,7 +18,7 @@
 
                 <div class="d-flex mb-3">
 
-                    <img src="{{ asset('images/' . $film->poster) }}"
+                    <img src="https://image.tmdb.org/t/p/w300{{ $film->poster }}"
                          width="70"
                          height="100"
                          class="rounded">

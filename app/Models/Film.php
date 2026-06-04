@@ -9,10 +9,14 @@ class Film extends Model
 {
     protected $fillable = [
         'nama_film',
-        'sinopsi',
+        'sinopsis',
         'release_year',
         'poster',
-        'type'
+        'type',
+        'tmdb_id',
+        'rating',
+        'director',
+        'runtime'
     ];
     public function threads()
     {

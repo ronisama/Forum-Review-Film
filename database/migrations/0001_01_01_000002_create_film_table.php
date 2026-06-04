@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('films', function (Blueprint $table) {
             $table->id('id');
             $table->string('nama_film')->index();
-            $table->longText('sinopsis');
-            $table->string('release_year');
-            $table->string('poster');
-            $table->string('type');
+            $table->longText('sinopsis')->nullable();
+            $table->string('release_year')->nullable();
+            $table->string('poster')->nullable();
+            $table->string('type')->nullable();
+            $table->float('rating')->nullable();
+            $table->string('director')->nullable();
+            $table->string('tmdb_id')->nullable()->unique();
+            $table->string('runtime')->nullable();
             $table->timestamps();
         });
     }

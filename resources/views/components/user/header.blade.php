@@ -83,7 +83,19 @@
              id="navbarSupportedContent">
 
             <ul class="navbar-nav mx-auto">
+                @auth
 
+    
+
+        
+    
+
+            @if(Auth::user()->role === 'admin')
+                <li class="nav-item">
+                    <a class="nav-link font font-color" href="/admin/films/search">Tambah Film</a>
+                </li>
+            @endif
+            @endauth
                 <li class="nav-item">
                     <a class="nav-link font font-color" href="/">Home</a>
                 </li>

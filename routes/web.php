@@ -9,6 +9,7 @@ use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminFilmController;
 use App\Models\Artikel;
 use App\Models\Film;
 use GuzzleHttp\Middleware;
@@ -65,3 +66,18 @@ Route::get('/notifications', [NotificationController::class, 'index'])->middlewa
 
 // user
 Route::get('/user/{username}', [UserController::class, 'show']);
+
+
+//admin
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/films/search', [AdminFilmController::class, 'searchForm']);
+    Route::get('/admin/films/result', [AdminFilmController::class, 'search']);
+    Route::post('/admin/films/store', [AdminFilmController::class, 'store']);
+
+    //delete film
+    Route::delete(
+        '/films/{film}',
+        [AdminFilmController::class, 'destroy']
+    )->middleware(['auth', 'admin'])
+        ->name('films.destroy');
+});

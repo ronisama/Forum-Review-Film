@@ -135,11 +135,33 @@
                 </div>
 
                 <p class="mb-0 mt-2">
-                    {!! preg_replace(
+
+                    {!! preg_replace_callback(
                         '/@([A-Za-z0-9_]+)/',
-                        '<a href="/user/$1" class="text-info text-decoration-none">@$1</a>',
+                        function ($matches) {
+                
+                            $username = $matches[1];
+                
+                            $user = \App\Models\User::where(
+                                'username',
+                                $username
+                            )->first();
+                
+                            if (!$user) {
+                
+                                return '@' . $username;
+                            }
+                
+                            $url = auth()->check() &&
+                                   auth()->user()->id == $user->id
+                                   ? '/dashboard'
+                                   : '/user/' . $user->username;
+                
+                            return '<a href="' . $url . '" class="text-info text-decoration-none fw-bold">@' . $username . '</a>';
+                        },
                         e($komentar->isi_komentars)
                     ) !!}
+                
                 </p>
                 {{-- tombol balas komentar --}}
                 <button
@@ -195,11 +217,33 @@
                     </strong>
 
                     <p class="mb-0 mt-2">
-                        {!! preg_replace(
+
+                        {!! preg_replace_callback(
                             '/@([A-Za-z0-9_]+)/',
-                            '<span class="text-info">@$1</span>',
+                            function ($matches) {
+                    
+                                $username = $matches[1];
+                    
+                                $user = \App\Models\User::where(
+                                    'username',
+                                    $username
+                                )->first();
+                    
+                                if (!$user) {
+                    
+                                    return '@' . $username;
+                                }
+                    
+                                $url = auth()->check() &&
+                                       auth()->user()->id == $user->id
+                                       ? '/dashboard'
+                                       : '/user/' . $user->username;
+                    
+                                return '<a href="' . $url . '" class="text-info text-decoration-none fw-bold">@' . $username . '</a>';
+                            },
                             e($reply->isi_komentars)
                         ) !!}
+                    
                     </p>
                     
                 </div>
