@@ -61,9 +61,12 @@
 
                 <div class="input-group shadow-sm">
 
-                    <input type="search"
-                           class="form-control rounded-start-pill"
-                           placeholder="Cari film...">
+                    <input
+    type="search"
+    name="search"
+    class="form-control"
+    placeholder="Cari film..."
+    value="{{ request('search') }}">
 
                     <button class="btn btn-dark rounded-end-pill">
                         <i class="bi bi-search"></i>

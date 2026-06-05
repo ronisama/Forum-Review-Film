@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Film;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Genre;
 
 class AdminFilmController extends Controller
 {
@@ -84,7 +85,7 @@ class AdminFilmController extends Controller
             }
         }
 
-        Film::updateOrCreate(
+        $film = Film::updateOrCreate(
             [
                 'tmdb_id' => $request->tmdb_id
             ],
@@ -115,6 +116,20 @@ class AdminFilmController extends Controller
                     ?? ($detail['episode_run_time'][0] ?? null)
             ]
         );
+        $genreIds = [];
+
+        foreach ($detail['genres'] ?? [] as $genreData) {
+
+            $genre = Genre::firstOrCreate(
+                [
+                    'genre' => $genreData['name']
+                ]
+            );
+
+            $genreIds[] = $genre->id;
+        }
+
+        $film->genres()->sync($genreIds);
 
         return back()->with(
             'success',

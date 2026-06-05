@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use App\Models\Film;
 use App\Models\Thread;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
@@ -13,7 +14,6 @@ class FilmController extends Controller
      * Display a listing of the resource.
      */
     public function index() {}
-
     /**
      * Show the form for creating a new resource.
      */
@@ -35,7 +35,7 @@ class FilmController extends Controller
      */
     public function show(string $id)
     {
-        $film = Film::findOrFail($id);
+        $film = Film::with('genres')->findOrFail($id);
 
         $threads = Thread::with('user')
             ->where('film_id', $film->id)
@@ -72,13 +72,6 @@ class FilmController extends Controller
                     'api_key' => env('TMDB_API_KEY')
                 ]
             )->json();
-            $recommendations = Http::get(
-                "https://api.themoviedb.org/3/movie/{$film->tmdb_id}/recommendations",
-                [
-                    'api_key' => env('TMDB_API_KEY'),
-                    'language' => 'id-ID'
-                ]
-            )->json();
             $trailer = collect($videos['results'])
                 ->first(function ($video) {
                     return $video['site'] === 'YouTube'
@@ -91,7 +84,6 @@ class FilmController extends Controller
                 'credits' => $credits,
                 'director' => $director,
                 'trailer' => $trailer,
-                'recommendations' => $recommendations
             ]);
         }
     }
@@ -116,10 +108,45 @@ class FilmController extends Controller
     {
         //
     }
-    public function daftarFilm()
+    public function daftarFilm(Request $request)
     {
-        $films = Film::all();
+        $query = Film::query();
 
-        return view('pages.DaftarFilm', compact('films'));
+        // Search
+        if ($request->filled('search')) {
+
+            $query->where(
+                'nama_film',
+                'like',
+                '%' . $request->search . '%'
+            );
+        }
+
+        // Filter Genre
+        if ($request->filled('genre')) {
+
+            $query->whereHas(
+                'genres',
+                function ($q) use ($request) {
+
+                    $q->where(
+                        'genres.id',
+                        $request->genre
+                    );
+                }
+            );
+        }
+
+        $films = $query
+            ->latest()
+            ->paginate(24);
+
+        $genres = Genre::orderBy('genre')
+            ->get();
+
+        return view(
+            'pages.daftarFilm',
+            compact('films', 'genres')
+        );
     }
 }

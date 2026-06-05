@@ -21,7 +21,7 @@
         <div class="col-md-8">
 
             <h1 class="font-color">{{ $film->nama_film }}</h1>
-
+            
             <p class="font-color">
                 {{ $film->release_year }}
             </p>
@@ -33,15 +33,14 @@
                 {{ $film->runtime }} menit
             </p>
             <div class="mb-3">
-
-                @foreach($tmdb['genres'] as $genre)
-        
+                @foreach($film->genres as $genre)
+            
                     <span class="badge bg-secondary me-1">
-                        {{ $genre['name'] }}
+                        {{ $genre->genre }}
                     </span>
-        
+            
                 @endforeach
-        
+            
             </div>
             <hr>
 

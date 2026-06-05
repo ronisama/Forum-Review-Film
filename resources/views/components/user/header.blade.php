@@ -115,20 +115,26 @@
             </ul>
 
             <!-- SEARCH -->
-            <form class="d-flex me-3">
+            <form method="GET" action="{{ url('/listFilm') }}" class="mb-4">
 
-                <div class="input-group shadow-sm">
-
-                    <input type="search"
-                           class="form-control rounded-start-pill"
-                           placeholder="Cari film...">
-
-                    <button class="btn btn-dark rounded-end-pill">
+                <div class="input-group">
+            
+                    <input
+                        type="search"
+                        name="search"
+                        class="form-control rounded-start-pill"
+                        placeholder="Cari film..."
+                        value="{{ request('search') }}">
+            
+                    <button class="btn btn-primary rounded-end-pill">
+            
                         <i class="bi bi-search"></i>
+                        Cari
+            
                     </button>
-
+            
                 </div>
-
+            
             </form>
 
         </div>

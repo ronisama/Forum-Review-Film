@@ -49,4 +49,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class);
     }
+    public function genres()
+    {
+        return $this->belongsToMany(
+            Genre::class,
+            'user_genre'
+        )->withPivot('score');
+    }
 }
