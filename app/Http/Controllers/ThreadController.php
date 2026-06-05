@@ -7,6 +7,7 @@ use App\Models\Komentar;
 use App\Models\Thread;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Genre;
 
 class ThreadController extends Controller
 {
@@ -41,11 +42,45 @@ class ThreadController extends Controller
             'isi_thread' => 'required'
         ]);
 
-        Thread::create([
+        $thread = Thread::create([
             'isi_thread' => $validated['isi_thread'],
             'film_id' => $validated['film_id'],
             'user_id' => Auth::id()
         ]);
+
+        $film = Film::with('genres')
+            ->find($validated['film_id']);
+
+        foreach ($film->genres as $genre) {
+
+            $userGenre = Auth::user()
+                ->genres()
+                ->where('genre_id', $genre->id)
+                ->first();
+
+            if ($userGenre) {
+
+                Auth::user()
+                    ->genres()
+                    ->updateExistingPivot(
+                        $genre->id,
+                        [
+                            'score' =>
+                            $userGenre->pivot->score + 5
+                        ]
+                    );
+            } else {
+
+                Auth::user()
+                    ->genres()
+                    ->attach(
+                        $genre->id,
+                        [
+                            'score' => 5
+                        ]
+                    );
+            }
+        }
 
         return redirect('/feeds');
     }

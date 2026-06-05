@@ -16,4 +16,11 @@ class Genre extends Model
             'film_genre'
         );
     }
+    public function users()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'user_genre'
+        )->withPivot('score');
+    }
 }

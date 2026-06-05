@@ -25,6 +25,8 @@ return new class extends Migration
                 ->references('id')
                 ->on('genres')
                 ->onDelete('cascade');
+
+            $table->integer('score')->default(0);
             $table->unique(['user_id', 'genre_id']);
         });
     }
