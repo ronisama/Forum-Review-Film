@@ -5,7 +5,15 @@
 <div class="container mt-5 pt-5">
 
     <h2 class="font-color">Cari Film dari TMDB</h2>
+    @if(session('success'))
 
+                            <div class="alert alert-success">
+
+                                {{ session('success') }}
+
+                            </div>
+
+                        @endif
     <form action="/admin/films/result" method="GET">
 
         <div class="input-group mb-4">
@@ -56,7 +64,7 @@
                             {{ $item['release_date'] ?? $item['first_air_date'] ?? '-' }}
 
                         </p>
-
+                        
                         <form
                             action="/admin/films/store"
                             method="POST">

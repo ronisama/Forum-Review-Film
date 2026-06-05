@@ -15,13 +15,21 @@ class DashboradController extends Controller
      */
     public function index()
     {
-        return view('pages/dashboardUser', [
-            'user' => Auth::user(),
-            'threads' => Thread::with('film')
-                ->where('user_id', Auth::id())
-                ->latest()
-                ->get()
-        ]);
+
+        return view(
+            'pages/dashboardUser',
+            [
+                'userGenres' => Auth::user()
+                    ->genres()
+                    ->orderByPivot('score', 'desc')
+                    ->get(),
+                'user' => Auth::user(),
+                'threads' => Thread::with('film')
+                    ->where('user_id', Auth::id())
+                    ->latest()
+                    ->get()
+            ]
+        );
     }
 
     /**

@@ -14,10 +14,10 @@
                 <h5 class="mb-3">Trending Film</h5>
 
                 {{-- loop film trending --}}
-                @foreach($films as $film)
+                @foreach($films->take(5) as $film)
 
                 <div class="d-flex mb-3">
-
+                    
                     <img src="https://image.tmdb.org/t/p/w300{{ $film->poster }}"
                          width="70"
                          height="100"
@@ -112,83 +112,191 @@
                 </div>
         
             </form>
-            @foreach($threads as $thread)
 
-            <a href="/feeds/{{ $thread->id }}"
-               class="text-decoration-none text-white">
+            <div class="mb-4">
+
+                <a href="{{ url('/feeds?tab=recommend') }}"
+                   class="btn {{ $tab == 'recommend' ? 'btn-primary' : 'btn-outline-primary' }}">
             
-                <div class="feed-item">
+                    Untuk Anda
             
-                    <div class="d-flex">
+                </a>
             
-                        {{-- avatar --}}
-                        <div class="me-3">
+                <a href="{{ url('/feeds?tab=latest') }}"
+                   class="btn {{ $tab == 'latest' ? 'btn-primary' : 'btn-outline-primary' }}">
             
-                            @if($thread->user->foto_profil)
+                    Thread Terbaru
             
-                                <img
-                                    src="{{ asset('images/' . $thread->user->foto_profil) }}"
-                                    width="50"
-                                    height="50"
-                                    class="rounded-circle object-fit-cover">
-                            @else
-                                <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
-                                    style="width:40px; height:40px;">
+                </a>
             
-                                    <i class="bi bi-person text-white"></i>
-            
+            </div>
+            @if($tab == 'recommend')
+                <h3 class="mb-3">
+                    Untuk Anda
+                </h3>
+                {{-- recommended threads --}}
+                @foreach($recommendedThreads as $thread)
+
+                <a href="/feeds/{{ $thread->id }}"
+                class="text-decoration-none text-white">
+                
+                    <div class="feed-item">
+                
+                        <div class="d-flex">
+                
+                            {{-- avatar --}}
+                            <div class="me-3">
+                
+                                @if($thread->user->foto_profil)
+                
+                                    <img
+                                        src="{{ asset('images/' . $thread->user->foto_profil) }}"
+                                        width="50"
+                                        height="50"
+                                        class="rounded-circle object-fit-cover">
+                                @else
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
+                                        style="width:40px; height:40px;">
+                
+                                        <i class="bi bi-person text-white"></i>
+                
+                                    </div>
+                                @endif
+                
+                            </div>
+                
+                            <div class="flex-grow-1">
+                
+                                <div>
+                
+                                    <strong>
+                                        {{ $thread->user->username }}
+                                    </strong>
+                
+                                    <span class="ms-2">
+                
+                                        {{ $thread->created_at->diffForHumans() }}
+                
+                                    </span>
+                
                                 </div>
-                            @endif
-            
-                        </div>
-            
-                        <div class="flex-grow-1">
-            
-                            <div>
-            
-                                <strong>
-                                    {{ $thread->user->username }}
-                                </strong>
-            
-                                <span class="ms-2">
-            
-                                    {{ $thread->created_at->diffForHumans() }}
-            
-                                </span>
-            
-                            </div>
-            
-                            <div class="small text-info mb-2">
-            
-                                {{ $thread->film->nama_film }}
-            
-                            </div>
-            
-                            <p>
-            
-                                {{ Str::limit($thread->isi_thread, 180) }}
-            
-                            </p>
-                            <div class="mt-2 small">
-    
-                                <i class="bi bi-chat"></i>
-                            
-                                {{ $thread->komentars->count() }}
-                            
-                            </div>
-                        </div>
-            
-                    </div>
-            
-                </div>
-            
-            </a>
-            
-        @endforeach
-        <div class="mt-3">
-            {{ $threads->links() }}
-        </div>
+                
+                                <div class="small text-info mb-2">
+                
+                                    {{ $thread->film->nama_film }}
+                
+                                </div>
+                
+                                <p>
+                
+                                    {{ Str::limit($thread->isi_thread, 180) }}
+                
+                                </p>
+                                <div class="mt-2 small">
         
+                                    <i class="bi bi-chat"></i>
+                                
+                                    {{ $thread->komentars->count() }}
+                                
+                                </div>
+                            </div>
+                
+                        </div>
+                
+                    </div>
+                
+                </a>
+                
+            @endforeach
+            <div class="mt-3">
+                {{ $recommendedThreads->links() }}
+            </div>
+
+            {{-- latest Trhead --}}
+            @else
+                <h3 class="mb-3">
+                    Thread Terbaru
+                </h3>
+                
+                @foreach($latestThreads as $thread)
+
+                <a href="/feeds/{{ $thread->id }}"
+                    class="text-decoration-none text-white">
+                
+                    <div class="feed-item">
+                
+                        <div class="d-flex">
+                
+                            {{-- avatar --}}
+                            <div class="me-3">
+                
+                                @if($thread->user->foto_profil)
+                
+                                    <img
+                                        src="{{ asset('images/' . $thread->user->foto_profil) }}"
+                                        width="50"
+                                        height="50"
+                                        class="rounded-circle object-fit-cover">
+                                @else
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
+                                        style="width:40px; height:40px;">
+                
+                                        <i class="bi bi-person text-white"></i>
+                
+                                    </div>
+                                @endif
+                
+                            </div>
+                
+                            <div class="flex-grow-1">
+                
+                                <div>
+                
+                                    <strong>
+                                        {{ $thread->user->username }}
+                                    </strong>
+                
+                                    <span class="ms-2">
+                
+                                        {{ $thread->created_at->diffForHumans() }}
+                
+                                    </span>
+                
+                                </div>
+                
+                                <div class="small text-info mb-2">
+                
+                                    {{ $thread->film->nama_film }}
+                
+                                </div>
+                
+                                <p>
+                
+                                    {{ Str::limit($thread->isi_thread, 180) }}
+                
+                                </p>
+                                <div class="mt-2 small">
+        
+                                    <i class="bi bi-chat"></i>
+                                
+                                    {{ $thread->komentars->count() }}
+                                
+                                </div>
+                            </div>
+                
+                        </div>
+                
+                    </div>
+                
+                </a>
+
+                @endforeach
+
+                
+                <div class="mt-3">
+                    {{ $latestThreads->links() }}
+                </div>
+            @endif
         </div>
 
     </div>

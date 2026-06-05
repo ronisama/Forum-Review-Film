@@ -8,6 +8,7 @@ use App\Models\Thread;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Genre;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ThreadController extends Controller
 {
@@ -16,11 +17,84 @@ class ThreadController extends Controller
      */
     public function index()
     {
+        $userGenres = Auth::user()
+            ->genres
+            ->pluck('pivot.score', 'id');
+
+        $recommendedThreads = Thread::with([
+            'user',
+            'film.genres'
+        ])
+            ->get();
+        $tab = request('tab', 'recommend');
+        foreach ($recommendedThreads as $thread) {
+
+            $dotProduct = 0;
+            $userMagnitude = 0;
+            $threadMagnitude = 0;
+
+            foreach ($userGenres as $genreId => $score) {
+
+                $userMagnitude += pow($score, 2);
+
+                $threadHasGenre = $thread
+                    ->film
+                    ->genres
+                    ->contains('id', $genreId)
+                    ? 1
+                    : 0;
+
+                $dotProduct += $score * $threadHasGenre;
+
+                $threadMagnitude += pow(
+                    $threadHasGenre,
+                    2
+                );
+            }
+
+            $userMagnitude = sqrt($userMagnitude);
+            $threadMagnitude = sqrt($threadMagnitude);
+
+            $thread->similarity =
+                ($userMagnitude > 0 && $threadMagnitude > 0)
+                ? $dotProduct / ($userMagnitude * $threadMagnitude)
+                : 0;
+            $freshnessScore = $thread->created_at->timestamp / time();
+
+            $thread->finalScore =
+                ($thread->similarity * 0.8)
+                +
+                ($freshnessScore * 0.2);
+        }
+
+        $recommendedThreads = $recommendedThreads
+            ->sortByDesc('finalScore')
+            ->values();
+        $currentPage = request()->get('page', 1);
+
+        $perPage = 4;
+
+        $recommendedThreads = new LengthAwarePaginator(
+            $recommendedThreads->forPage($currentPage, $perPage),
+            $recommendedThreads->count(),
+            $perPage,
+            $currentPage,
+            [
+                'path' => request()->url()
+            ]
+        );
+        $latestThreads = Thread::with([
+            'user',
+            'film'
+        ])
+            ->latest()
+            ->paginate(5);
         return view('pages.FeedsFilm', [
+            'tab' => $tab,
+            'userGenres' => $userGenres,
             'films' => Film::all(),
-            'threads' => Thread::with(['user', 'film'])
-                ->latest()
-                ->paginate(5)
+            'recommendedThreads' => $recommendedThreads,
+            'latestThreads' => $latestThreads
         ]);
     }
 

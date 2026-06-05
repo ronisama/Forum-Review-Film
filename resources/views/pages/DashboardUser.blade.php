@@ -164,21 +164,18 @@
                 Favorite Genre
             </h4>
 
-            <button class="btn btn-outline-light btn-sm">
-                Edit Genre
-            </button>
-
         </div>
 
-        <div class="genre-wrapper">
+        @foreach($userGenres as $genre)
 
-            <span class="genre-chip">Sci-Fi</span>
-            <span class="genre-chip">Thriller</span>
-            <span class="genre-chip">Action</span>
-            <span class="genre-chip">Fantasy</span>
+            <div class="font-color">
 
-        </div>
+                {{ $genre->genre }}
+                ({{ $genre->pivot->score }})
 
+            </div>
+
+        @endforeach
     </div>
 
 </div>

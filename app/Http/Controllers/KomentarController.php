@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Notification;
 use App\Models\User;
+use App\Models\Film;
+use App\Models\Thread;
 
 class KomentarController extends Controller
 {
@@ -69,6 +71,37 @@ class KomentarController extends Controller
                     'tipe' => 'mention',
                     'pesan' => $komentar->isi_komentars
                 ]);
+            }
+        }
+        $thread = Thread::with('film.genres')
+            ->find($validated['thread_id']);
+
+        if ($thread && $thread->film) {
+            foreach ($thread->film->genres as $genre) {
+                $userGenre = Auth::user()
+                    ->genres()
+                    ->where('genre_id', $genre->id)
+                    ->first();
+                if ($userGenre) {
+                    Auth::user()
+                        ->genres()
+                        ->updateExistingPivot(
+                            $genre->id,
+                            [
+                                'score' =>
+                                $userGenre->pivot->score + 2
+                            ]
+                        );
+                } else {
+                    Auth::user()
+                        ->genres()
+                        ->attach(
+                            $genre->id,
+                            [
+                                'score' => 2
+                            ]
+                        );
+                }
             }
         }
         return back();
