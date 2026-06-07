@@ -8,36 +8,48 @@
         <!-- LEFT CONTENT -->
         <div class="col-lg-8">
 
-            @foreach ($artikel as $item)
+            @foreach ($articles as $item)
 
                 <div class="article-list-card mb-4">
 
                     <div class="row g-3 align-items-center">
 
                         <!-- IMAGE -->
-                        <div class="col-md-4">
-                            <img src="{{ $item->thumbnail }}"
-                                 class="img-fluid article-image">
-                        </div>
+                        <img
+                            src="{{ asset('storage/' . $item->gambar_cover) }}"
+                            class="img-fluid article-image">
+                        
 
                         <!-- CONTENT -->
                         <div class="col-md-8">
 
                             <small class="text-secondary">
-                                {{ $item->category }}
+
+                                {{ $item->categories
+                                    ->pluck('nama_kategori')
+                                    ->join(', ') }}
+                            
                             </small>
 
                             <h3 class="article-title mt-2">
-                                {{ $item->title }}
+                                {{ $item->judul }}
                             </h3>
 
                             <p class="article-preview">
-                                {{ Str::limit($item->content, 150) }}
+                                {{ Str::limit(
+                                    strip_tags($item->isi_awal),
+                                    150
+                                )}}
                             </p>
 
-                            <a href="#"
-                               class="btn btn-primary">
+                            <a
+                                href="{{ route(
+                                    'articles.show',
+                                    $item->id) }}"
+                                class="btn btn-primary">
+
                                 Baca Selengkapnya
+
                             </a>
 
                         </div>
@@ -50,7 +62,7 @@
 
             <!-- PAGINATION -->
             <div class="mt-4">
-                {{ $items->links() }}
+                {{ $articles->links() }}
             </div>
 
         </div>
@@ -58,27 +70,72 @@
         <!-- RIGHT SIDEBAR -->
         <div class="col-lg-4">
 
-            <div class="popular-section">
-
-                <h4 class="mb-4">Popular Posts</h4>
-
-                @foreach ($popularPosts as $post)
-
-                    <div class="popular-card mb-3">
-
-                        <img src="{{ $post->thumbnail }}"
-                             class="img-fluid rounded">
-
-                        <h6 class="mt-2">
-                            {{ $post->title }}
-                        </h6>
-
-                    </div>
-
-                @endforeach
-
+            <!-- SEARCH -->
+            <div class="card mb-3">
+                <div class="card-body">
+        
+                    <form method="GET" action="{{ route('articles.index') }}">
+        
+                        <div class="mb-2">
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control"
+                                placeholder="Cari artikel..."
+                                value="{{ request('search') }}">
+                        </div>
+        
+                        <button class="btn btn-primary w-100">
+                            Search
+                        </button>
+        
+                    </form>
+        
+                </div>
             </div>
-
+        
+            <!-- KATEGORI -->
+            <div class="card">
+                <div class="card-body">
+            
+                    <h5 class="mb-3">Kategori</h5>
+            
+                    <form method="GET" action="{{ route('articles.index') }}">
+                        <!-- KATEGORI CHECKBOX -->
+                        @foreach ($categories as $category)
+            
+                            <div class="form-check">
+            
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    name="category[]"
+                                    value="{{ $category->id }}"
+                                    {{ in_array($category->id, request('category', [])) ? 'checked' : '' }}>
+            
+                                <label class="form-check-label">
+                                    {{ $category->nama_kategori }}
+                                </label>
+            
+                            </div>
+            
+                        @endforeach
+            
+                        <!-- BUTTON -->
+                        <button type="submit" class="btn btn-primary btn-sm mt-3 w-100">
+                            Filter
+                        </button>
+            
+                        <a href="{{ route('articles.index') }}"
+                           class="btn btn-secondary btn-sm mt-2 w-100">
+                            Reset
+                        </a>
+            
+                    </form>
+            
+                </div>
+            </div>
+        
         </div>
 
     </div>

@@ -5,22 +5,22 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboradController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ThreadController;
-use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminFilmController;
+use App\Http\Controllers\AdminArticleController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\HomeController;
 use App\Models\Artikel;
 use App\Models\Film;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('pages/home');
-});
-Route::get('/artikelfilm', function () {
-    return view('pages/ArtikelFilm');
-});
+Route::get('/', [HomeController::class, 'index']);
+// Route::get('/artikelfilm', function () {
+//     return view('pages/ArtikelFilm');
+// });
 // Route::get('/dashboard', function () {
 //     return view('pages/DashboardUser');
 // });
@@ -56,11 +56,6 @@ Route::get('/feeds/{id}', [ThreadController::class, 'show'])->middleware('auth')
 //komentar
 Route::post('/komentar', [KomentarController::class, 'store']);
 
-//artikel
-Route::get('/artikel', [ArtikelController::class, 'index']);
-Route::get('/artikel/{id}', [ArtikelController::class, 'show']);
-
-
 //notif
 Route::get('/notifications', [NotificationController::class, 'index'])->middleware('auth');
 
@@ -80,4 +75,26 @@ Route::middleware(['auth', 'admin'])->group(function () {
         [AdminFilmController::class, 'destroy']
     )->middleware(['auth', 'admin'])
         ->name('films.destroy');
+
+    // artikel untuk admin
+    Route::get(
+        '/admin/articles/tambah',
+        [AdminArticleController::class, 'create']
+    )->name('articles.create');
+
+    Route::post(
+        '/admin/articles',
+        [AdminArticleController::class, 'store']
+    )->name('articles.store');
 });
+
+// artikel
+Route::get(
+    '/articles',
+    [ArticleController::class, 'index']
+)->name('articles.index');
+
+Route::get(
+    '/articles/{article}',
+    [ArticleController::class, 'show']
+)->name('articles.show');

@@ -45,7 +45,7 @@
             <hr>
 
             <p class="font-color">
-                {{$film->sinopsis }}
+                {{$film->sinopsis}}
             </p>
             @if($director)
 

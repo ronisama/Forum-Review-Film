@@ -17,24 +17,25 @@
                 @foreach($films->take(5) as $film)
 
                 <div class="d-flex mb-3">
-                    
-                    <img src="https://image.tmdb.org/t/p/w300{{ $film->poster }}"
+                    <a href="/listFilm/{{ $film->id }}">
+                        <img src="https://image.tmdb.org/t/p/w300{{ $film->poster }}"
                          width="70"
                          height="100"
                          class="rounded">
+                    </a>
+                        <div class="ms-2 font-color">
 
-                    <div class="ms-2">
+                            <h6 class="mb-1">
+                                {{ Str::limit($film->nama_film, 25) }}
+                            </h6>
 
-                        <h6 class="mb-1">
-                            {{ Str::limit($film->nama_film, 25) }}
-                        </h6>
+                            <small>
+                                {{ $film->release_year }}
+                            </small>
 
-                        <small>
-                            {{ $film->release_year }}
-                        </small>
+                        </div>
 
-                    </div>
-
+                    
                 </div>
 
                 @endforeach

@@ -56,7 +56,7 @@
         <div class="col-md-10">
             <div class="row g-4">
 
-                @foreach($films as $film)
+                @foreach($films->sortBy("nama_film") as $film)
 
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6">
 

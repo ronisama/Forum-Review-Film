@@ -7,45 +7,40 @@
 
     <div class="carousel-inner">
 
-        <!-- SLIDE 1 -->
-        <div class="carousel-item active">
+        
 
-            <img src="{{ asset('images/hail-mary-wallpaper.jpg') }}"
-                 class="d-block w-100 hero-image">
+            @foreach ($films as $key => $film)
+        
+                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
 
-            <div class="carousel-caption custom-caption">
-
-                <h1>Hail Mary Project</h1>
-
-                <p>
-                    Perjalanan epik di planet Arrakis.
-                </p>
-
-                <button class="btn btn-warning">
-                    Lihat Detail
-                </button>
-
-            </div>
-
-        </div>
-
-        <!-- SLIDE 2 -->
-        <div class="carousel-item">
-
-            <img src="{{ asset('images/batman.jpg') }}"
-                 class="d-block w-100 hero-image">
-
-            <div class="carousel-caption custom-caption">
-
-                <h1>THE BATMAN</h1>
-
-                <p>
-                    Gotham dalam bayangan gelap.
-                </p>
-
-            </div>
-
-        </div>
+                    <div class="carousel-img-wrapper">
+                
+                        <img src="https://image.tmdb.org/t/p/original{{ $film->poster }}"
+                            class="carousel-img">
+                
+                </div>
+                    <div class="carousel-caption custom-caption">
+        
+                        <h1>{{ $film->judul }}</h1>
+        
+                        <p>
+                            {{ Str::limit($film->sinopsis, 100) }}
+                        </p>
+        
+                        <a href="{{ url('/listFilm/' . $film->id) }}"
+                           class="btn btn-warning">
+        
+                            Lihat Detail
+        
+                        </a>
+        
+                    </div>
+        
+                </div>
+        
+            @endforeach
+        
+        
 
     </div>
 
@@ -70,63 +65,6 @@
     </button>
 
 </div>
-{{-- <div class="container-fluid">
-    
-<img src={{asset('images/hail-mary-wallpaper.jpg')}} class="img-fluid">
-</div> --}}
-
-<section class="container my-5">
-
-    <div class="d-flex justify-content-between align-items-center mb-3">
-
-        <h4 class="text-white">Trending Movies</h4>
-
-        <a href="#" class="text-primary">See All →</a>
-
-    </div>
-
-    <div class="movie-scroll">
-
-        <!-- CARD -->
-        <div class="movie-card">
-            <img src="{{ asset('images/movie1.jpg') }}">
-            <h6>Project Hail Mary</h6>
-        </div>
-
-        <div class="movie-card">
-            <img src="{{ asset('images/movie2.jpg') }}">
-            <h6>Mortal Kombat II</h6>
-        </div>
-
-        <div class="movie-card">
-            <img src="{{ asset('images/movie3.jpg') }}">
-            <h6>Swapped</h6>
-        </div>
-
-        <div class="movie-card">
-            <img src="{{ asset('images/movie3.jpg') }}">
-            <h6>Swapped</h6>
-        </div>
-        
-        <div class="movie-card">
-            <img src="{{ asset('images/movie3.jpg') }}">
-            <h6>Swapped</h6>
-        </div>
-
-        <div class="movie-card">
-            <img src="{{ asset('images/movie3.jpg') }}">
-            <h6>Swapped</h6>
-        </div>
-
-        <div class="movie-card">
-            <img src="{{ asset('images/movie3.jpg') }}">
-            <h6>Swapped</h6>
-        </div>
-        <!-- tambah lagi -->
-
-    </div>
-
-</section>
 {{-- <div>
 poster list ke kanan atau kebawah 5 atau 6 film untuk film yang sedang tayang
 </div> --}}
@@ -135,59 +73,27 @@ poster list ke kanan atau kebawah 5 atau 6 film untuk film yang sedang tayang
 
     <div class="d-flex justify-content-between align-items-center mb-3">
 
-        <h4 class="text-white">Now Playing</h4>
+        <h4 class="text-white">TRENDING</h4>
 
-        <a href="#" class="text-primary">See All →</a>
+        <a href="/listFilm" class="text-primary">See All →</a>
 
     </div>
 
     <div class="movie-scroll">
-
+        @foreach ($films as $key => $film)
         <!-- CARD -->
-        <div class="movie-card">
-            <img src="{{ asset('images/movie1.jpg') }}">
-            <h6>Project Hail Mary</h6>
-        </div>
-
-        <div class="movie-card">
-            <img src="{{ asset('images/movie2.jpg') }}">
-            <h6>Mortal Kombat II</h6>
-        </div>
-
-        <div class="movie-card">
-            <img src="{{ asset('images/movie3.jpg') }}">
-            <h6>Swapped</h6>
-        </div>
-
-        <div class="movie-card">
-            <img src="{{ asset('images/movie3.jpg') }}">
-            <h6>Swapped</h6>
-        </div>
-        
-        <div class="movie-card">
-            <img src="{{ asset('images/movie3.jpg') }}">
-            <h6>Swapped</h6>
-        </div>
-
-        <div class="movie-card">
-            <img src="{{ asset('images/movie3.jpg') }}">
-            <h6>Swapped</h6>
-        </div>
-
-        <div class="movie-card">
-            <img src="{{ asset('images/movie3.jpg') }}">
-            <h6>Swapped</h6>
-        </div>
-        <!-- tambah lagi -->
-
+            <div class="movie-card">
+                <a href="{{ url('/listFilm/' . $film->id) }}">
+                    <img src="https://image.tmdb.org/t/p/original{{ $film->poster }}">
+                    <h6>{{ $film->judul }}</h6>
+                </a>
+            </div>
+        @endforeach  
     </div>
 
 </section>
-{{-- 
-<div>
-    poster list ke kanan atau kebawah 5 atau 6 film untuk film yang sedang trending
-</div> --}}
 <hr>
+{{-- about us --}}
 <section class="container px-5 my-5">
     <div class="font font-color my-5">
         <h3 class="text-center">
@@ -200,28 +106,27 @@ poster list ke kanan atau kebawah 5 atau 6 film untuk film yang sedang tayang
 </section>
 <hr>
 
+{{-- artikel --}}
 <section class="container my-5">
     <h4 class="text-white">
         Artikel
     </h4>
+    @foreach($articles as $key =>$article)
     <!-- berita 1 -->
     <div class="row article-card align-items-center">
 
         <!-- GAMBAR -->
         <div class="col-md-4">
-            <img src="{{ asset('images/hail-mary-wallpaper.jpg') }}"
-                 class="img-fluid rounded">
+            <img src="{{ asset('storage/' . $article->gambar_cover) }}">
         </div>
 
         <!-- TEXT -->
         <div class="col-md-8 font-color">
 
-            <h3>Project Hail Mary</h3>
+            <h3>{{$article->judul}}</h3>
 
             <p>
-                Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy text ever since the 1500s.
+                {{ Str::limit($article->isi_awal, 100) }}
             </p>
 
             <a href="#" class="btn btn-primary">
@@ -231,35 +136,17 @@ poster list ke kanan atau kebawah 5 atau 6 film untuk film yang sedang tayang
         </div>
 
     </div>
-    <!-- berita 2 -->
-    <div class="row article-card align-items-center">
-
-        <!-- GAMBAR -->
-        <div class="col-md-4">
-            <img src="{{ asset('images/hail-mary-wallpaper.jpg') }}"
-                 class="img-fluid rounded">
-        </div>
-
-        <!-- TEXT -->
-        <div class="col-md-8 font-color">
-
-            <h3>Project Hail Mary</h3>
-
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy text ever since the 1500s.
-            </p>
-
-            <a href="#" class="btn btn-primary">
-                Baca Selengkapnya
-            </a>
-
-        </div>
-
-    </div>
+    @endforeach 
 
 </section>
 
-
+<script>
+    const container = document.querySelector('.movie-scroll');
+    
+    container.addEventListener('wheel', function (e) {
+        e.preventDefault(); // stop scroll vertikal halaman
+    
+        container.scrollLeft += e.deltaY;
+    });
+    </script>
 @endsection
