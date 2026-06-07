@@ -46,7 +46,8 @@ class AuthController extends Controller
 
         if ($user && Hash::check($request->password, $user->password)) {
 
-            Auth::login($user);
+            $remember = $request->boolean('remember');
+            Auth::login($user, $remember);
             $request->session()->regenerate();
 
             return redirect('/');

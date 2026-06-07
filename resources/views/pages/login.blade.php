@@ -52,7 +52,17 @@
         
                 <input class="form-control mb-3" type="text" name="username" placeholder="Username">
                 <input class="form-control mb-3" type="password" name="password" placeholder="Password">
-        
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="remember"
+                    id="remember">
+
+                <label
+                    class="form-check-label"
+                    for="remember">
+                    Remember Me
+                </label>
                 <button class="btn btn-primary w-100" type="submit">Login</button>
                 @if($errors->any()) <p style="color: red">{{ $errors->first() }}</p> @endif
                 <a href="{{ route('password.request') }}">
