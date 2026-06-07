@@ -12,10 +12,13 @@ use App\Http\Controllers\AdminFilmController;
 use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Models\Artikel;
 use App\Models\Film;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/', [HomeController::class, 'index']);
 // Route::get('/artikelfilm', function () {
@@ -98,3 +101,40 @@ Route::get(
     '/articles/{article}',
     [ArticleController::class, 'show']
 )->name('articles.show');
+
+
+// reset password
+Route::get('/test-email', function () {
+
+    Mail::raw(
+        'Halo, ini email percobaan dari Laravel.',
+        function ($message) {
+            $message->to('firgigastempurung@gmail.com')
+                ->subject('Test Email Laravel');
+        }
+    );
+
+    return 'Email berhasil dikirim!';
+});
+
+
+//lupa password
+Route::get(
+    '/forgot-password',
+    [ForgotPasswordController::class, 'showForm']
+)->name('password.request');
+
+Route::post(
+    '/forgot-password',
+    [ForgotPasswordController::class, 'sendResetLink']
+)->name('password.email');
+
+Route::get(
+    '/reset-password/{token}',
+    [ResetPasswordController::class, 'showForm']
+)->name('password.reset');
+
+Route::post(
+    '/reset-password',
+    [ResetPasswordController::class, 'reset']
+)->name('password.update');

@@ -55,7 +55,9 @@
         
                 <button class="btn btn-primary w-100" type="submit">Login</button>
                 @if($errors->any()) <p style="color: red">{{ $errors->first() }}</p> @endif
-               
+                <a href="{{ route('password.request') }}">
+                    Lupa Password?
+                </a>
                 <div class="mt-3 text-center">
                     <p> Belum punya akun?  <a href="/register" class="text-white">Daftar</a></p>
                 </div>
