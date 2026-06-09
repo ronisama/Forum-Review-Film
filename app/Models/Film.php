@@ -12,6 +12,7 @@ class Film extends Model
         'sinopsis',
         'release_year',
         'poster',
+        'banner',
         'type',
         'tmdb_id',
         'rating',

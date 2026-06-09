@@ -61,4 +61,79 @@ class AdminArticleController extends Controller
             'Artikel berhasil ditambahkan'
         );
     }
+    public function destroy(Article $article)
+    {
+        $article->delete();
+
+        return back()->with(
+            'success',
+            'Artikel berhasil dihapus'
+        );
+    }
+
+    public function edit(Article $article)
+    {
+        return view(
+            'pages.ArtikelEdit',
+            [
+                'article' => $article,
+                'categories' => ArticleCategory::all()
+            ]
+        );
+    }
+    public function update(
+        Request $request,
+        Article $article
+    ) {
+        $validated = $request->validate([
+            'judul' => 'required',
+            'isi_awal' => 'required',
+            'isi_tengah' => 'required',
+            'isi_akhir' => 'required',
+            'categories' => 'required|array'
+        ]);
+
+        $data = [
+            'judul' => $validated['judul'],
+            'isi_awal' => $validated['isi_awal'],
+            'isi_tengah' => $validated['isi_tengah'],
+            'isi_akhir' => $validated['isi_akhir']
+        ];
+
+        if ($request->hasFile('gambar_cover')) {
+
+            $data['gambar_cover'] = $request
+                ->file('gambar_cover')
+                ->store(
+                    'articles',
+                    'public'
+                );
+        }
+
+        if ($request->hasFile('gambar_tengah')) {
+
+            $data['gambar_tengah'] = $request
+                ->file('gambar_tengah')
+                ->store(
+                    'articles',
+                    'public'
+                );
+        }
+
+        $article->update($data);
+
+        $article->categories()->sync(
+            $validated['categories']
+        );
+
+        return redirect()
+            ->route(
+                'articles.show',
+                $article->id
+            )
+            ->with(
+                'success',
+                'Artikel berhasil diperbarui'
+            );
+    }
 }

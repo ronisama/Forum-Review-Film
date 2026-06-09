@@ -14,6 +14,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\AdminController;
 use App\Models\Artikel;
 use App\Models\Film;
 use GuzzleHttp\Middleware;
@@ -58,6 +59,7 @@ Route::get('/feeds/{id}', [ThreadController::class, 'show'])->middleware('auth')
 
 //komentar
 Route::post('/komentar', [KomentarController::class, 'store']);
+Route::delete('/komentar/{id}', [KomentarController::class, 'destroy'])->name('komentar.destroy');
 
 //notif
 Route::get('/notifications', [NotificationController::class, 'index'])->middleware('auth');
@@ -89,6 +91,35 @@ Route::middleware(['auth', 'admin'])->group(function () {
         '/admin/articles',
         [AdminArticleController::class, 'store']
     )->name('articles.store');
+
+    Route::delete(
+        '/admin/articles/{id}',
+        [AdminArticleController::class, 'destroy']
+    )->middleware(['auth', 'admin'])
+        ->name('article.destroy');
+
+    // edit artikel
+    Route::get(
+        '/admin/articles/{article}/edit',
+        [AdminArticleController::class, 'edit']
+    )->name('articles.edit');
+
+    Route::put(
+        '/admin/articles/{article}',
+        [AdminArticleController::class, 'update']
+    )->name('articles.update');
+
+    // user
+    Route::delete(
+        '/admin/users/{user}',
+        [AdminController::class, 'destroyUser']
+    )->name('admin.users.destroy');
+
+    // hapus thread dan komentar
+    Route::delete(
+        '/feeds/{id}',
+        [ThreadController::class, 'destroy']
+    )->name('feeds.destroy');
 });
 
 // artikel

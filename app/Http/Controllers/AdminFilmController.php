@@ -106,6 +106,8 @@ class AdminFilmController extends Controller
 
                 'poster' => $detail['poster_path'] ?? null,
 
+                'banner' => $detail['backdrop_path'] ?? null,
+
                 'rating' => $detail['vote_average'] ?? null,
 
                 'director' => $director,

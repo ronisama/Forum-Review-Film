@@ -49,6 +49,7 @@
 
                             Reset
                         </a>
+                </form>
             </div>
         </div>
 
@@ -56,8 +57,7 @@
         <div class="col-md-10">
             <div class="row g-4">
 
-                @foreach($films->sortBy("nama_film") as $film)
-
+                @forelse($films->sortBy('nama_film') as $film)
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6">
 
                     <a href="/listFilm/{{ $film->id }}"
@@ -90,6 +90,7 @@
                             @method('DELETE')
 
                             <button
+                                type="submit"
                                 class="btn btn-danger btn-sm"
                                 onclick="return confirm('Hapus film ini?')">
 
@@ -105,7 +106,55 @@
 
                 </div>
                 
-                @endforeach
+                @empty
+
+                    <div class="col-12 text-center">
+
+                        <h3 class="font-color">
+                            Film Tidak Ditemukan
+                        </h3>
+
+                    @if(request('search'))
+
+                        <p class="text-secondary">
+
+                            Tidak ada hasil untuk
+                            "<strong>{{ request('search') }}</strong>"
+                            <p class="text-muted">Ketik yang bener dong</p>
+
+                        </p>
+
+                    @endif
+                    
+                        <h6>Mungkin yang anda cari</h6>
+                        @if($suggestions->count())
+
+                            <h5 class="mt-4 font-color">
+
+                                Mungkin yang Anda Cari:
+
+                            </h5>
+
+                            @foreach($suggestions as $suggestion)
+
+                                <div>
+
+                                    <a
+                                        href="/listFilm/{{ $suggestion['film']->id }}"
+                                        class="text-decoration-none">
+
+                                        {{ $suggestion['film']->nama_film }}
+
+                                    </a>
+
+                                </div>
+
+                            @endforeach
+
+                        @endif
+                </div>
+
+                @endempty
             </div>
             <div class="mt-4">
                 {{ $films->appends(request()->query())->links() }}

@@ -50,13 +50,36 @@
 
             </div>
             @if(Auth::id() == $user->id)
-                <button href="/dashboard" class="btn btn-primary">
-                    <a  class="font-color">
+                <button class="btn btn-primary">
+                    <a href="/dashboard" class="font-color text-decoration-none">
                         Edit Profile
                     </a>
                 </button>
                 
             @endif
+            @auth
+            @if(Auth::user()->role === 'admin')
+
+            <form
+                action="{{ route('admin.users.destroy', $user->id) }}"
+                method="POST">
+
+                @csrf
+                @method('DELETE')
+
+                <button
+                    type="submit"
+                    class="btn btn-danger mt-2"
+                    onclick="return confirm('Hapus akun ini?')">
+
+                    Hapus Akun
+
+                </button>
+
+            </form>
+
+            @endif
+            @endauth
         </div>
     
     <!-- FAVORITE GENRE kurang ini yak -->
@@ -67,21 +90,18 @@
             <h4 class="text-white">
                 Favorite Genre
             </h4>
-
-            <button class="btn btn-outline-light btn-sm">
-                Edit Genre
-            </button>
-
         </div>
 
-        <div class="genre-wrapper">
+        @foreach($userGenres as $genre)
 
-            <span class="genre-chip">Sci-Fi</span>
-            <span class="genre-chip">Thriller</span>
-            <span class="genre-chip">Action</span>
-            <span class="genre-chip">Fantasy</span>
+            <div class="font-color">
 
-        </div>
+                {{ $genre->genre }}
+                ({{ $genre->pivot->score }})
+
+            </div>
+
+        @endforeach
 
     </div>
 
@@ -128,6 +148,34 @@
                                 {{ $thread->created_at->diffForHumans() }}
                             </small>
                         </div>
+
+                        @auth
+                            @if(Auth::user()->role === 'admin')
+
+                            <form
+                                action="{{ route(
+                                    'feeds.destroy',
+                                    $thread->id
+                                ) }}"
+                                method="POST">
+
+                                @csrf
+                                @method('DELETE')
+
+                                <button
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm(
+                                        'Hapus thread ini?'
+                                    )">
+
+                                    Hapus
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                
+                            </form>
+
+                            @endif
+                        @endauth
                 
                     </div>
                 
@@ -140,7 +188,7 @@
                 <div class="glass-card p-3">
         
                     <p class="mb-0">
-                        Kamu belum membuat thread.
+                        {{$user->username}} belum membuat thread.
                     </p>
         
                 </div>

@@ -15,7 +15,7 @@
 
                     <div class="carousel-img-wrapper">
                 
-                        <img src="https://image.tmdb.org/t/p/original{{ $film->poster }}"
+                        <img src="https://image.tmdb.org/t/p/original{{ $film->banner }}"
                             class="carousel-img">
                 
                 </div>

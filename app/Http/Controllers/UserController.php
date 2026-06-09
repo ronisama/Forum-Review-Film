@@ -43,7 +43,11 @@ class UserController extends Controller
             ->firstOrFail();
 
         return view('pages.ProfileUser', [
-            'user' => $user
+            'user' => $user,
+            'userGenres' => $user
+                ->genres()
+                ->orderByPivot('score', 'desc')
+                ->get()
         ]);
     }
 

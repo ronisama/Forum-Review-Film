@@ -70,7 +70,6 @@
                             method="POST">
 
                             @csrf
-
                             <input
                                 type="hidden"
                                 name="tmdb_id"

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('sinopsis')->nullable();
             $table->string('release_year')->nullable();
             $table->string('poster')->nullable();
+            $table->string('banner')->nullable();
             $table->string('type')->nullable();
             $table->float('rating')->nullable();
             $table->string('director')->nullable();

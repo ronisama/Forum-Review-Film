@@ -140,13 +140,39 @@ class FilmController extends Controller
         $films = $query
             ->latest()
             ->paginate(24);
+        $suggestions = collect();
+        if (
+            $request->filled('search')
+            && $films->total() == 0
+        ) {
+
+            $suggestions = Film::select('id', 'nama_film')->get()
+
+                ->map(function ($film) use ($request) {
+
+                    similar_text(
+                        strtolower($request->search),
+                        strtolower($film->nama_film),
+                        $percent
+                    );
+
+                    return [
+                        'film' => $film,
+                        'similarity' => $percent
+                    ];
+                })
+
+                ->sortByDesc('similarity')
+
+                ->take(5);
+        }
 
         $genres = Genre::orderBy('genre')
             ->get();
 
         return view(
             'pages.daftarFilm',
-            compact('films', 'genres')
+            compact('films', 'genres', 'suggestions')
         );
     }
 }

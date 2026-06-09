@@ -10,9 +10,11 @@
     
             {{-- Avatar --}}
             <div class="me-3">
-    
+                <a href="{{ url('/user/'.
+                   $thread->user->username) }}"
+                   class="text-decoration-none">
                 @if($thread->user->foto_profil)
-    
+                    
                     <img
                         src="{{ asset('images/' . $thread->user->foto_profil) }}"
                         width="50"
@@ -30,18 +32,20 @@
                     </div>
     
                 @endif
-    
+                </a>
             </div>
     
             {{-- Konten --}}
             <div class="flex-grow-1">
     
                 <div class="d-flex align-items-center">
-    
-                    <strong>
-                        {{ $thread->user->username }}
-                    </strong>
-    
+                    <a
+                        href="{{ url('/user/'.$thread->user->username) }}"
+                        class="text-decoration-none">
+                        <strong class="font-color">
+                            {{ $thread->user->username }}
+                        </strong>
+                    </a>
                     <span class="ms-2">
                         • {{ $thread->created_at->diffForHumans() }}
                     </span>
@@ -173,6 +177,38 @@
                     Balas
 
                 </button>
+                @auth
+
+                @if(
+                    Auth::id() == $komentar->user_id || Auth::user()->role === 'admin')
+
+                    <form
+                        action="{{ route(
+                            'komentar.destroy',
+                            $komentar->id
+                        ) }}"
+                        method="POST"
+                        class="d-inline">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm(
+                                'Hapus komentar ini?'
+                            )">
+
+                            Hapus
+
+                        </button>
+
+                    </form>
+
+                    @endif
+
+                @endauth
                 <div
                     class="collapse mt-2"
                     id="replyForm{{ $komentar->id }}">
@@ -245,13 +281,44 @@
                         ) !!}
                     
                     </p>
-                    
+                    @auth
+
+                @if(
+                    Auth::id() == $reply->user_id || Auth::user()->role === 'admin')
+
+                    <form
+                        action="{{ route(
+                            'komentar.destroy',
+                            $reply->id
+                        ) }}"
+                        method="POST"
+                        class="d-inline">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger btn-sm mt-2"
+                            onclick="return confirm(
+                                'Hapus komentar ini?'
+                            )">
+
+                            Hapus
+
+                        </button>
+
+                    </form>
+
+                    @endif
+
+                @endauth
                 </div>
 
             </div>
 
             @endforeach
-
+            
         @empty
 
             <p class="font font-color">Belum ada komentar.</p>

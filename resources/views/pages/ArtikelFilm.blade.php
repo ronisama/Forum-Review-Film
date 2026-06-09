@@ -51,7 +51,40 @@
                                 Baca Selengkapnya
 
                             </a>
+                            @auth
+                            @if(Auth::user()->role === 'admin')
 
+                                <form
+                                    action="{{ route('article.destroy', $item->id) }}"
+                                    method="POST"
+                                    class="position-relative bottom-0 end-0 mt-2">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Hapus artikel ini?')">
+
+                                        <i class="bi bi-trash"></i>
+                                        Hapus
+
+                                    </button>
+
+                                </form>
+                                {{-- Edit artikel --}}
+                                <a
+                                    href="{{ route(
+                                        'articles.edit',
+                                        $item->id
+                                    ) }}"
+                                    class="btn btn-warning">
+                                
+                                    Edit Artikel
+                            
+                                </a>
+                            @endif
+                            @endauth
                         </div>
 
                     </div>
@@ -71,7 +104,7 @@
         <div class="col-lg-4">
 
             <!-- SEARCH -->
-            <div class="card mb-3">
+            <div class="glass-card w-100 mb-3">
                 <div class="card-body">
         
                     <form method="GET" action="{{ route('articles.index') }}">
@@ -95,7 +128,7 @@
             </div>
         
             <!-- KATEGORI -->
-            <div class="card">
+            <div class="glass-card w-100">
                 <div class="card-body">
             
                     <h5 class="mb-3">Kategori</h5>

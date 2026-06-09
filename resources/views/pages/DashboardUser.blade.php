@@ -16,8 +16,10 @@
             <label for="profileImageInput" class="profile-image-wrapper">
 
                 <img id="previewImage"
-                        src="{{ asset('images/'.$user->foto_profil) }}"
-                        class="profile-image">
+                    src="{{ $user->foto_profil
+                            ? asset('images/' . $user->foto_profil)
+                            : asset('images/default-profile.png') }}"
+                    class="profile-image">
 
                 <div class="profile-overlay">
                     Ganti Foto

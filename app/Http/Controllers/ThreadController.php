@@ -207,7 +207,10 @@ class ThreadController extends Controller
     {
         $thread = Thread::findOrFail($id);
 
-        if ($thread->user_id != Auth::id()) {
+        if (
+            $thread->user_id != Auth::id()
+            && Auth::user()->role !== 'admin'
+        ) {
             abort(403);
         }
 

@@ -134,8 +134,20 @@ class KomentarController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Komentar $id)
     {
-        //
+        if (
+            $id->user_id != Auth::id()
+            && Auth::user()->role !== 'admin'
+        ) {
+            abort(403);
+        }
+
+        $id->delete();
+
+        return back()->with(
+            'success',
+            'Komentar berhasil dihapus'
+        );
     }
 }

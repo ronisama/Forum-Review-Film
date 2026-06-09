@@ -3,7 +3,15 @@
 @section('maincontent')
 
 <div class="container custom-padding font-color">
+    @if(session('success'))
 
+                            <div class="alert alert-success">
+
+                                {{ session('success') }}
+
+                            </div>
+
+                        @endif
     <h2>Tambah Artikel</h2>
 
     <form

@@ -92,7 +92,7 @@
                                 @foreach($films as $film)
         
                                     <option value="{{ $film->id }}">
-                                        {{ $film->nama_film }}
+                                        {{ $film->nama_film }} - {{$film->release_year}}
                                     </option>
         
                                 @endforeach
@@ -147,32 +147,39 @@
                 
                             {{-- avatar --}}
                             <div class="me-3">
-                
                                 @if($thread->user->foto_profil)
-                
+                            
                                     <img
-                                        src="{{ asset('images/' . $thread->user->foto_profil) }}"
+                                        src="{{ asset(
+                                            'images/' .
+                                            $thread->user->foto_profil
+                                        ) }}"
                                         width="50"
                                         height="50"
                                         class="rounded-circle object-fit-cover">
+                            
                                 @else
-                                    <div class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
+                            
+                                    <div
+                                        class="rounded-circle d-flex align-items-center justify-content-center bg-secondary"
                                         style="width:40px; height:40px;">
-                
+                            
                                         <i class="bi bi-person text-white"></i>
-                
+                            
                                     </div>
+                            
                                 @endif
-                
-                            </div>
-                
-                            <div class="flex-grow-1">
-                
-                                <div>
-                
-                                    <strong>
-                                        {{ $thread->user->username }}
-                                    </strong>
+                    
+                                </div>
+                    
+                                <div class="flex-grow-1">
+                    
+                                    <div>
+                    
+                                        <strong>
+                                            {{ $thread->user->username }}
+                                            
+                                        </strong>
                 
                                     <span class="ms-2">
                 
