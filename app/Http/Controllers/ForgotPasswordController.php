@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\
+use App\Models\Film;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -11,11 +11,11 @@ use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
 {
-    public function index()
+    public function showForm()
     {
         $films = Film::latest()->take(5)->get();
 
-        return view('pages.login', compact('films'));
+        return view('pages.LupaPassword', compact('films'));
     }
 
     public function sendResetLink(Request $request)
@@ -46,7 +46,7 @@ class ForgotPasswordController extends Controller
                     'created_at' => now()
                 ]
             );
-
+        $films = Film::latest()->take(5)->get();
         $link = url('/reset-password/' . $token);
 
         Mail::raw(
@@ -60,7 +60,8 @@ class ForgotPasswordController extends Controller
 
         return back()->with(
             'success',
-            'Link reset telah dikirim'
+            'Link reset telah dikirim',
+            compact('films')
         );
     }
 }
