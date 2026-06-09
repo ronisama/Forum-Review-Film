@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Film;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,13 +12,19 @@ class AuthController extends Controller
 {
     public function showLogin()
     {
-        return view('pages.login');
+        $films = Film::latest()->take(5)->get();
+
+        return view('pages.login', compact('films'));
     }
+
 
     public function showRegister()
     {
-        return view('pages.register');
+        $films = Film::latest()->take(5)->get();
+
+        return view('pages.register', compact('films'));
     }
+
 
     public function register(Request $request)
     {

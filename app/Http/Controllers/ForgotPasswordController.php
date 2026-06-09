@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -10,10 +11,13 @@ use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
 {
-    public function showForm()
+    public function index()
     {
-        return view('pages.LupaPassword');
+        $films = Film::latest()->take(5)->get();
+
+        return view('pages.login', compact('films'));
     }
+
     public function sendResetLink(Request $request)
     {
         $request->validate([

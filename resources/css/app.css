@@ -47,6 +47,16 @@ body{
     left: 0;
 }
 
+@media(max-width: 1024px){
+        .carousel-item{
+        height: 40vh;
+    }
+    .carousel-control-prev,
+    .carousel-control-next {
+        display: none;
+    }
+}
+
 /* gambar */
 .carousel-img {
     width: 100%;
@@ -315,6 +325,20 @@ hr {
 }
 
 .glass-card {
+    width: 100%;
+    padding: 30px;
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.glass-card-login {
     width: 70%;
     padding: 30px;
     border-radius: 16px;
@@ -327,6 +351,7 @@ hr {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     color: white;
 }
+/* m
 /* movie card baru */
 .movie-card {
     transition: 0.3s;

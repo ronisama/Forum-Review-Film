@@ -144,10 +144,10 @@
                 
                         <div class="text-end">
                 
-                            <small class="d-block">
+                            <small class="d-block mb-1">
                                 {{ $thread->created_at->diffForHumans() }}
                             </small>
-                        </div>
+                        
 
                         @auth
                             @if(Auth::user()->role === 'admin')

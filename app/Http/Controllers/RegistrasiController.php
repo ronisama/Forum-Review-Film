@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Film;
 use Illuminate\Http\Request;
 
 class RegistrasiController extends Controller
@@ -11,7 +12,9 @@ class RegistrasiController extends Controller
      */
     public function index()
     {
-        //
+        $films = Film::latest()->take(5)->get();
+
+        return view('pages.register', compact('films'));
     }
 
     /**

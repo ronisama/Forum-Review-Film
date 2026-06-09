@@ -5,7 +5,7 @@
     <div class="row vh-100">
 
         <!-- KIRI: CAROUSEL -->
-        <section class="col-md-6 p-0">
+        <section class="col-md-6 p-0 vh-100">
 
             <div id="heroCarousel"
                  class="carousel slide h-100"
@@ -13,10 +13,9 @@
                  data-bs-interval="3000">
 
                 <div class="carousel-inner h-100">
-
-                    <!-- SLIDE 1 -->
-                    <div class="carousel-item active">
-                        <img src="{{ asset('images/hail-mary-wallpaper.jpg') }}"
+                    @foreach ($films as $key => $film)
+                    <div class="carousel-item h-100 {{ $key == 0 ? 'active' : '' }}">
+                        <img src="https://image.tmdb.org/t/p/original{{ $film->poster }}"
                              class="d-block w-100 h-100 object-fit-cover">
 
                         <div class="carousel-caption">
@@ -24,18 +23,7 @@
                             <p>Perjalanan epik di planet Arrakis.</p>
                         </div>
                     </div>
-
-                    <!-- SLIDE 2 -->
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/spiderman-brand-new-day.jpg') }}"
-                             class="d-block w-100 h-100 object-fit-cover">
-
-                        <div class="carousel-caption">
-                            <h1>SPIDERMAN BRAND NEW DAY</h1>
-                            <p>Perjalanan peter parker setelah dilupakan seluruh dunia bahwa dia spiderman.</p>
-                        </div>
-                    </div>
-
+                    @endforeach 
                 </div>
 
             </div>
@@ -45,7 +33,7 @@
         <!-- KANAN: LOGIN -->
         <section class="col-md-6 d-flex align-items-center justify-content-center">
             
-            <form method="POST" action="/login" class="glass-card">
+            <form method="POST" action="/login" class="glass-card-login">
                 @csrf
         
                 <h2 class="mb-4 text-white">Login</h2>

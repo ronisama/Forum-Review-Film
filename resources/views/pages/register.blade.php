@@ -7,12 +7,7 @@
 
         <!-- LEFT: FORM -->
         <section class="col-md-6 d-flex align-items-center justify-content-center">
-
-            
-
-                
-
-                <form method="POST" action="/register" class="glass-card w-75">
+                <form method="POST" action="/register" class="glass-card-login w-75">
                     <h2 class="mb-4 text-white">Register</h2>
                     @csrf
 
@@ -61,7 +56,7 @@
         </section>
 
         <!-- RIGHT: IMAGE / CAROUSEL -->
-        <section class="col-md-6 p-0">
+        <section class="col-md-6 p-0 h-100">
 
             <div id="heroCarousel"
                  class="carousel slide h-100"
@@ -69,35 +64,18 @@
                  data-bs-interval="3000">
 
                 <div class="carousel-inner h-100">
-                    {{-- poster dari database --}}
-                    {{-- @foreach($films as $film)
+                    @foreach ($films as $key => $film)
+                    <!-- carousel-->
+                        <div class="carousel-item h-100 {{ $key == 0 ? 'active' : '' }}">
+                            <img src="https://image.tmdb.org/t/p/original{{ $film->poster }}"
+                                class="d-block w-100 h-100 object-fit-cover">
 
-                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <img src="{{ asset('images/' . $film->poster) }}">
+                            <div class="carousel-caption">
+                                <h1>Hail Mary Project</h1>
+                                <p>Perjalanan epik di planet Arrakis.</p>
+                            </div>
                         </div>
-
-                    @endforeach --}}
-                    <!-- SLIDE 1 -->
-                    <div class="carousel-item active">
-                        <img src="{{ asset('images/hail-mary-wallpaper.jpg') }}"
-                             class="d-block w-100 h-100 object-fit-cover">
-
-                        <div class="carousel-caption">
-                            <h1>Hail Mary Project</h1>
-                            <p>Perjalanan epik di planet Arrakis.</p>
-                        </div>
-                    </div>
-
-                    <!-- SLIDE 2 -->
-                    <div class="carousel-item">
-                        <img src="{{ asset('images/spiderman-brand-new-day.jpg') }}"
-                             class="d-block w-100 h-100 object-fit-cover">
-
-                        <div class="carousel-caption">
-                            <h1>SPIDERMAN BRAND NEW DAY</h1>
-                            <p>Perjalanan peter parker setelah dilupakan seluruh dunia bahwa dia spiderman.</p>
-                        </div>
-                    </div>
+                    @endforeach
 
                 </div>
 
