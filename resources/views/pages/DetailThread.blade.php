@@ -103,9 +103,11 @@
 
             <div class="glass-card p-3 mb-2">
                 <div class="d-flex align-items-center">
-
+                    <a href="{{ url('/user/'.
+                        $thread->user->username) }}"
+                        class="text-decoration-none">
                     @if($komentar->user->foto_profil)
-                
+                    
                         <img
                             src="{{ asset('images/' . $komentar->user->foto_profil) }}"
                             width="40"
@@ -123,7 +125,7 @@
                         </div>
                 
                     @endif
-                
+                    </a>
                     <div class="d-flex align-items-center ms-3">
     
                     <strong>
@@ -247,11 +249,13 @@
             <div class="ms-5 mt-3 mb-3">
 
                 <div class="glass-card p-2">
-
+                    <a href="{{ url('/user/'.
+                        $thread->user->username) }}"
+                        class="text-decoration-none font-color">
                     <strong>
                         {{ $reply->user->username }}
                     </strong>
-
+                    </a>
                     <p class="mb-0 mt-2">
 
                         {!! preg_replace_callback(

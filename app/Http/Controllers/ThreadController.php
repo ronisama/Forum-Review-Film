@@ -176,7 +176,7 @@ class ThreadController extends Controller
             ->where('thread_id', $thread->id)
             ->whereNull('parent_id')
             ->latest()
-            ->paginate(10);
+            ->paginate(5);
 
         return view('pages.DetailThread', [
             'thread' => $thread,
