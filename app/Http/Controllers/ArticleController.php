@@ -12,14 +12,14 @@ class ArticleController extends Controller
     {
 
         $query = Article::with('categories');
-
+        $category = request('category_radio') ?: request('category_select');
         if (request('search')) {
             $query->where('judul', 'like', '%' . request('search') . '%');
         }
 
-        if (request('category')) {
-            $query->whereHas('categories', function ($q) {
-                $q->where('article_categories.id', request('category'));
+        if ($category) {
+            $query->whereHas('categories', function ($q) use ($category) {
+                $q->where('article_categories.id', request('category_radio') ?: request('category_select'));
             });
         }
 
@@ -48,7 +48,7 @@ class ArticleController extends Controller
 
         $trendingFilms = Film::withCount('threads')
             ->orderByDesc('threads_count')
-            ->take(5)
+            ->take(6)
             ->get();
 
         return view(

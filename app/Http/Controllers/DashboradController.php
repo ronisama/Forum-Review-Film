@@ -77,6 +77,18 @@ class DashboradController extends Controller
                 'password_lama' => 'Password lama salah'
             ]);
         }
+        // Validasi data input
+        $validatedData = $request->validate([
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id . ',id',
+            'password' => 'nullable|min:8|max:16|confirmed',
+            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ], [
+            'foto_profil.max' => 'Foto profil maksimal 2 MB.',
+            'foto_profil.image' => 'File harus berupa gambar.',
+            'foto_profil.mimes' => 'Format gambar harus JPG, JPEG, PNG, atau WEBP.',
+            'foto_profil.uploaded' => 'Foto profil gagal diupload. Maksimal 2 MB',
+        ]);
         //upload foto profil
         if ($request->hasFile('foto_profil')) {
 
@@ -98,12 +110,7 @@ class DashboradController extends Controller
 
             $user->foto_profil = null;
         }
-        // Validasi data input
-        $validatedData = $request->validate([
-            'username' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id . ',id',
-            'password' => 'nullable|min:8|max:16|confirmed',
-        ]);
+
 
         // Update data pengguna
         $user->update([

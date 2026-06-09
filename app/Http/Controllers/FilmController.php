@@ -111,7 +111,7 @@ class FilmController extends Controller
     public function daftarFilm(Request $request)
     {
         $query = Film::query();
-
+        $genre = request('genre_radio') ?: request('genre_select');
         // Search
         if ($request->filled('search')) {
 
@@ -123,15 +123,16 @@ class FilmController extends Controller
         }
 
         // Filter Genre
-        if ($request->filled('genre')) {
+        if ($genre) {
 
             $query->whereHas(
                 'genres',
-                function ($q) use ($request) {
+                function ($q) use ($genre) {
 
                     $q->where(
                         'genres.id',
-                        $request->genre
+                        request('genre_radio') ?:
+                            request('genre_select')
                     );
                 }
             );

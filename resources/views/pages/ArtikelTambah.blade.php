@@ -3,7 +3,18 @@
 @section('maincontent')
 
 <div class="container custom-padding font-color">
-    @if(session('success'))
+    @error('gambar_cover')
+        <div class="text-danger">
+            {{ $message }}
+        </div>
+    @enderror
+
+    @error('gambar_tengah')
+        <div class="text-danger">
+            {{ $message }}
+        </div>
+    @enderror
+        @if(session('success'))
 
                             <div class="alert alert-success">
 

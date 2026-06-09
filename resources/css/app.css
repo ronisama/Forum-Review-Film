@@ -350,7 +350,7 @@ hr {
 }
 
 .glass-card-feed{
-    width: 70%;
+    width: 100%;
     padding: 30px;
     border-radius: 0%;
 
@@ -379,6 +379,7 @@ hr {
 .thread-input{
     width: 100%;
     border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
     background: transparent;
     color: white;
     resize: none;
@@ -419,4 +420,18 @@ hr {
 
 .article-content p{
     margin-bottom: 20px;
+}
+
+.trending-film img{
+    width: 300px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.order-1 {
+    order: 1 !important;
+}
+
+.order-2 {
+    order: 2 !important;
 }

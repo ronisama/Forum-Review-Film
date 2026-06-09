@@ -4,8 +4,106 @@
 <section class="container custom-padding">
 
     <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-lg-4">
 
-        <!-- LEFT CONTENT -->
+            <!-- SEARCH -->
+            <div class="glass-card w-100 mb-3">
+                <div class="card-body">
+        
+                    <form method="GET" action="{{ route('articles.index') }}">
+        
+                        <div class="mb-2">
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control"
+                                placeholder="Cari artikel..."
+                                value="{{ request('search') }}">
+                        </div>
+        
+                        <button class="btn btn-primary w-100">
+                            Search
+                        </button>
+        
+                    </form>
+        
+                </div>
+            </div>
+        
+            <!-- KATEGORI -->
+            <div class="glass-card w-100">
+                <div class="card-body">
+            
+                    <h5 class="mb-3">Kategori</h5>
+            
+                    <form method="GET" action="{{ route('articles.index') }}">
+                        <!-- KATEGORI CHECKBOX -->
+                        <div class="d-none d-md-block">
+                            @foreach($categories as $category)
+
+                            <div class="form-check">
+                            
+                                <input
+                                    id="category{{ $category->id }}"
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="category_radio"
+                                    value="{{ $category->id }}"
+                                    {{ request('category_radio') == $category->id ? 'checked' : '' }}>
+                             
+                                <label for="category {{$category->id}}"class="form-check-label font-color">
+                                    
+                                    {{ $category->nama_kategori }}
+                                    
+                                </label>
+                            
+                            </div>
+                            @endforeach
+                        </div>
+                        {{-- hanya muncul di mobile --}}
+                        <div class='d-block d-md-none'>
+                            <select
+                                name="category_select"
+                                class="form-select mt-2">
+    
+                                <option value="">
+                                    Semua Kategori
+                                </option>
+    
+                                @foreach ($categories as $category)
+    
+                                    <option
+                                        value="{{ $category->id }}"
+                                        {{ request('category_select') == $category->id ? 'selected' : '' }}>
+    
+                                        {{ $category->nama_kategori }}
+    
+                                    </option>
+    
+                                @endforeach
+                            
+                            </select>
+                        </div>
+                            
+            
+                        <!-- BUTTON -->
+                        <button type="submit" class="btn btn-primary btn-sm mt-3 w-100">
+                            Filter
+                        </button>
+            
+                        <a href="{{ route('articles.index') }}"
+                           class="btn btn-secondary btn-sm mt-2 w-100">
+                            Reset
+                        </a>
+            
+                    </form>
+            
+                </div>
+            </div>
+        
+        </div>
+        <!-- CONTENT -->
         <div class="col-lg-8">
 
             @foreach ($articles as $item)
@@ -98,77 +196,6 @@
                 {{ $articles->links() }}
             </div>
 
-        </div>
-
-        <!-- RIGHT SIDEBAR -->
-        <div class="col-lg-4">
-
-            <!-- SEARCH -->
-            <div class="glass-card w-100 mb-3">
-                <div class="card-body">
-        
-                    <form method="GET" action="{{ route('articles.index') }}">
-        
-                        <div class="mb-2">
-                            <input
-                                type="text"
-                                name="search"
-                                class="form-control"
-                                placeholder="Cari artikel..."
-                                value="{{ request('search') }}">
-                        </div>
-        
-                        <button class="btn btn-primary w-100">
-                            Search
-                        </button>
-        
-                    </form>
-        
-                </div>
-            </div>
-        
-            <!-- KATEGORI -->
-            <div class="glass-card w-100">
-                <div class="card-body">
-            
-                    <h5 class="mb-3">Kategori</h5>
-            
-                    <form method="GET" action="{{ route('articles.index') }}">
-                        <!-- KATEGORI CHECKBOX -->
-                        @foreach ($categories as $category)
-            
-                            <div class="form-check">
-            
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    name="category[]"
-                                    value="{{ $category->id }}"
-                                    {{ in_array($category->id, request('category', [])) ? 'checked' : '' }}>
-            
-                                <label class="form-check-label">
-                                    {{ $category->nama_kategori }}
-                                </label>
-            
-                            </div>
-            
-                        @endforeach
-            
-                        <!-- BUTTON -->
-                        <button type="submit" class="btn btn-primary btn-sm mt-3 w-100">
-                            Filter
-                        </button>
-            
-                        <a href="{{ route('articles.index') }}"
-                           class="btn btn-secondary btn-sm mt-2 w-100">
-                            Reset
-                        </a>
-            
-                    </form>
-            
-                </div>
-            </div>
-        
         </div>
 
     </div>

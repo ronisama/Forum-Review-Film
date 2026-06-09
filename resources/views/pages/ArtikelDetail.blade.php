@@ -89,10 +89,10 @@
                     Trending Film
 
                 </h4>
-
+                <div class="row g-2">
                 @foreach($trendingFilms as $film)
-
-                    <div class="mb-3">
+                    
+                    <div class="col-6">
 
                         <a href="/listFilm/{{ $film->id }}"
                             class="text-decoration-none">
@@ -102,8 +102,9 @@
                         </a>
 
                     </div>
-
+                
                 @endforeach
+                </div>
 
             </div>
 

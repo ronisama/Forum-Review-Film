@@ -26,6 +26,11 @@
                 </div>
 
             </label>
+            @error('foto_profil')
+                <div class="text-danger mt-2">
+                    {{ $message }}
+                </div>
+            @enderror
 
             <input type="file"
                    id="profileImageInput"

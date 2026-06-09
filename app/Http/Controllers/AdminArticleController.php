@@ -21,12 +21,18 @@ class AdminArticleController extends Controller
     {
         $validated = $request->validate([
             'judul' => 'required',
-            'gambar_cover' => 'required|image',
-            'gambar_tengah' => 'required|image',
+            'gambar_cover' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar_tengah' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             'isi_awal' => 'required',
             'isi_tengah' => 'required',
             'isi_akhir' => 'required',
             'categories' => 'required|array'
+        ], [
+            'gambar_cover.max' =>
+            'Gambar cover maksimal 2 MB.',
+
+            'gambar_tengah.max' =>
+            'Gambar tengah maksimal 2 MB.',
         ]);
 
         $gambarCover = $request

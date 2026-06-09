@@ -5,10 +5,10 @@
 <div class="container-fluid custom-padding">
     <div class="row">
 
-        <!-- Sidebar -->
+        <!-- Sidebar --> 
         <div class="col-md-2">
             <div class="sidebar p-3">
-                <h5 class="font-color">Genre</h5>
+                <h5 class="font-color">Cari Film atau Genre</h5>
                 <form method="GET" action="{{ url('/listFilm') }}">
                     <input
                         type="search"
@@ -16,26 +16,52 @@
                         class="form-control"
                         placeholder="Cari film..."
                         value="{{ request('search') }}">
-                        @foreach($genres as $genre)
+                        <div class="d-none d-md-block">
+                            @foreach($genres as $genre)
 
-                        <div class="form-check">
+                            <div class="form-check">
+                            
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="genre_radio"
+                                    value="{{ $genre->id }}"
+                                    {{ request('genre_radio') == $genre->id ? 'checked' : '' }}>
+                            
+                                <label class="form-check-label font-color">
+                                    
+                                    {{ $genre->genre }}
+                                    
+                                </label>
+                            
+                            </div>
+                            @endforeach
+                        </div>
+                        {{-- hanya muncul di mobile --}}
+                        <div class='d-block d-md-none'>
+                        <select
+                            name="genre_select"
+                            class="form-select mt-2">
+
+                            <option value="">
+                                Semua Genre
+                            </option>
+
+                            @foreach($genres as $genre)
+
+                                <option
+                                    value="{{ $genre->id }}"
+                                    {{ request('genre_select') == $genre->id ? 'selected' : '' }}>
+
+                                    {{ $genre->genre }}
+
+                                </option>
+
+                            @endforeach
                         
-                            <input
-                                class="form-check-input"
-                                type="radio"
-                                name="genre"
-                                value="{{ $genre->id }}"
-                                {{ request('genre') == $genre->id ? 'checked' : '' }}>
-                        
-                            <label class="form-check-label font-color">
-                                
-                                {{ $genre->genre }}
-                                
-                            </label>
-                        
+                        </select>
                         </div>
                         
-                        @endforeach
                         
                         <button
                             type="submit"

@@ -4,7 +4,7 @@
 
 <div class="container mt-5 pt-5">
 
-    <div class="glass-card p-4 mb-4">
+    <div class="glass-card-feed p-4 mb-4">
 
         <div class="d-flex">
     
@@ -72,7 +72,7 @@
 
     <div class="mt-4">
         {{-- form komentar --}}
-        <div class="glass-card p-3 mb-4">
+        <div class="glass-card-feed p-3 mb-4">
 
             <form method="POST" action="/komentar">
                 @csrf
@@ -101,7 +101,7 @@
 
         @forelse($komentars as $komentar)
 
-            <div class="glass-card p-3 mb-2">
+            <div class="glass-card-feed p-3 mb-2">
                 <div class="d-flex align-items-center">
                     <a href="{{ url('/user/'.
                         $thread->user->username) }}"
@@ -248,7 +248,7 @@
 
             <div class="ms-5 mt-3 mb-3">
 
-                <div class="glass-card p-2">
+                <div class="glass-card-feed p-2">
                     <a href="{{ url('/user/'.
                         $thread->user->username) }}"
                         class="text-decoration-none font-color">
