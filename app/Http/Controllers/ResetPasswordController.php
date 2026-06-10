@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Film;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -13,10 +14,12 @@ class ResetPasswordController extends Controller
 {
     public function showForm($token)
     {
+        $films = Film::latest()->take(5)->get();
         return view(
             'pages.ResetPassword',
             [
-                'token' => $token
+                'token' => $token,
+                'films' => $films
             ]
         );
     }

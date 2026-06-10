@@ -2,10 +2,10 @@
 
 @section('maincontent')
 <div class="container-fluid overflow-hidden">
-    <div class="row vh-100">
+    <div class="row vh-100">      
         <!-- LEFT: FORM -->
         <section class="col-md-6 d-flex align-items-center justify-content-center">
-                <form method="POST" action="/register" class="glass-card-login w-75">
+                <form method="POST" action="{{ route('password.update') }}" class="glass-card-login w-75">
                     <h2 class="mb-4 text-white">Masukkan Password Baru</h2>
                     @csrf
 
@@ -57,6 +57,9 @@
 
             </div>
 
+Simpan Password</button>
+            </form>
+        
         </section>
 
     </div>

@@ -8,22 +8,22 @@
         <section class="col-md-6 p-0">
 
             <div id="heroCarousel"
-                 class="carousel slide h-100"
+                 class="carousel slide vh-100"
                  data-bs-ride="carousel"
                  data-bs-interval="3000">
-                    <div class="carousel-inner h-100">
-                    <!-- SLIDE 1 -->
+                 
+                <div class="carousel-inner h-100">
                     @foreach ($films as $key => $film)
-                    <!-- carousel-->
-                        <div class="carousel-item h-100 {{ $key == 0 ? 'active' : '' }}">
-                            <img src="https://image.tmdb.org/t/p/original{{ $film->poster }}"
-                                class="d-block w-100 h-100 object-fit-cover">
+                    <!-- SLIDE 1 -->
+                    <div class="carousel-item h-100 {{ $key == 0 ? 'active' : '' }}">
+                        <img src="https://image.tmdb.org/t/p/original{{ $film->poster }}"
+                             class="d-block w-100 h-100 object-fit-cover">
 
-                            <div class="carousel-caption">
-                                <h1>Hail Mary Project</h1>
-                                <p>Perjalanan epik di planet Arrakis.</p>
-                            </div>
+                        <div class="carousel-caption">
+                            <h1>Hail Mary Project</h1>
+                            <p>Perjalanan epik di planet Arrakis.</p>
                         </div>
+                    </div>
                     @endforeach
                 </div>
 

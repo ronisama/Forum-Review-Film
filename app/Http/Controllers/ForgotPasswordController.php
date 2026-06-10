@@ -46,7 +46,7 @@ class ForgotPasswordController extends Controller
                     'created_at' => now()
                 ]
             );
-        $films = Film::latest()->take(5)->get();
+
         $link = url('/reset-password/' . $token);
 
         Mail::raw(
@@ -60,8 +60,7 @@ class ForgotPasswordController extends Controller
 
         return back()->with(
             'success',
-            'Link reset telah dikirim',
-            compact('films')
+            'Link reset telah dikirim'
         );
     }
 }
