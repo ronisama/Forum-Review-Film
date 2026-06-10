@@ -126,7 +126,7 @@
 
             @foreach($relatedArticles as $item)
 
-                <div class="col-md-3">
+                <div class="col-md-3 mb-4">
 
                     <div class="card h-100">
 

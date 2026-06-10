@@ -97,7 +97,6 @@
             <div class="font-color">
 
                 {{ $genre->genre }}
-                ({{ $genre->pivot->score }})
 
             </div>
 

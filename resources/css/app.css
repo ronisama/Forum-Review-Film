@@ -11,6 +11,10 @@ body{
 .font-color{
     color:white !important;
 }
+.navbar-logo img{
+    height:60px; 
+    width:auto;
+}
 .custom-navbar{
     background: rgba(255,255,255,0.1);
     backdrop-filter: blur(15px);

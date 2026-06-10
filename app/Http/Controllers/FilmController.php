@@ -172,7 +172,7 @@ class FilmController extends Controller
             ->get();
 
         return view(
-            'pages.daftarFilm',
+            'pages.DaftarFilm',
             compact('films', 'genres', 'suggestions')
         );
     }

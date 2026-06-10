@@ -17,7 +17,7 @@ class DashboradController extends Controller
     {
 
         return view(
-            'pages/dashboardUser',
+            'pages/DashboardUser',
             [
                 'userGenres' => Auth::user()
                     ->genres()

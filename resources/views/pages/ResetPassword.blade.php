@@ -46,10 +46,6 @@
                             <img src="https://image.tmdb.org/t/p/original{{ $film->poster }}"
                                 class="d-block w-100 h-100 object-fit-cover">
 
-                            <div class="carousel-caption">
-                                <h1>Hail Mary Project</h1>
-                                <p>Perjalanan epik di planet Arrakis.</p>
-                            </div>
                         </div>
                     @endforeach
 

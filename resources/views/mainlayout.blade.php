@@ -13,39 +13,6 @@
             'resources/js/app.js'])
 
 </head>
-{{-- @if ($username == 'admin'){
-
-<body class="d-flex flex-column min-vh-100">
-
-    @include('components.admin.header')
-
-    <main class="flex-grow-1">
-
-        @yield('maincontent')
-
-    </main>
-
-    @include('components.admin.footer')
-
-</body>
-}
-@elseif($username !== 'admin'){
-<body class="d-flex flex-column min-vh-100">
-
-    @include('components.user.header')
-
-    <main class="flex-grow-1">
-
-        @yield('maincontent')
-
-    </main>
-
-    @include('components.user.footer')
-
-</body>
-}
-@endif  --}}
-
 <body class="d-flex flex-column min-vh-100">
 
     @include('components.user.header')

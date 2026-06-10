@@ -4,8 +4,8 @@
     <div class="container-fluid">
 
         <!-- LEFT: LOGO -->
-        <a href="{{ url('/') }}" class="navbar-brand">
-            <img src="" alt="logo">
+        <a href="{{ url('/') }}" class="navbar-logo">
+            <img src="{{ asset('images/frf.png') }}" alt="logo">
         </a>
 
         <!-- RIGHT SECTION WRAPPER -->
