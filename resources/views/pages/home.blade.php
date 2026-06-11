@@ -129,7 +129,7 @@ poster list ke kanan atau kebawah 5 atau 6 film untuk film yang sedang tayang
                 {{ Str::limit($article->isi_awal, 100) }}
             </p>
 
-            <a href="#" class="btn btn-primary">
+            <a href="{{url('/articles/' . $article->id)}}" class="btn btn-primary">
                 Baca Selengkapnya
             </a>
 

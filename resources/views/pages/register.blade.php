@@ -2,11 +2,11 @@
 
 @section('maincontent')
 
-<div class="container-fluid">
+<div class="container-fluid login-page">
     <div class="row vh-100">
 
         <!-- LEFT: FORM -->
-        <section class="col-md-6 d-flex align-items-center justify-content-center">
+        <section class="col-md-6 d-flex align-items-center justify-content-center login-form-wrapper">
                 <form method="POST" action="/register" class="glass-card-login w-75">
                     <h2 class="mb-4 text-white">Register</h2>
                     @csrf
@@ -56,7 +56,7 @@
         </section>
 
         <!-- RIGHT: IMAGE / CAROUSEL -->
-        <section class="col-md-6 p-0 h-100">
+        <section class="col-md-6 p-0 h-100 login-carousel">
 
             <div id="heroCarousel"
                  class="carousel slide h-100"

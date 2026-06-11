@@ -42,7 +42,8 @@
             <div class="mt-4">
 
                 <img
-                    src="{{ asset('storage/' . $article->gambar_cover) }}"
+                    src="{{ asset('storage/' . $article->gambar_cover) }} "
+                    {{-- {{ asset('articles/' . $article->gambar_cover) }} works di cpanel--}}
                     class="img-fluid rounded">
 
             </div>

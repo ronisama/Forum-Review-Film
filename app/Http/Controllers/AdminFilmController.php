@@ -11,7 +11,7 @@ class AdminFilmController extends Controller
 {
     public function searchForm()
     {
-        return view('pages.adminFilmSearch');
+        return view('pages.AdminFilmSearch');
     }
 
     public function search(Request $request)
@@ -27,7 +27,7 @@ class AdminFilmController extends Controller
             ]
         );
 
-        return view('pages.adminFilmSearch', [
+        return view('pages.AdminFilmSearch', [
             'results' => $response->json()['results'] ?? []
         ]);
     }
@@ -40,8 +40,27 @@ class AdminFilmController extends Controller
                 'api_key' => env('TMDB_API_KEY'),
                 'language' => 'id-ID'
             ]
-        )->json();
+        );
+        $detail = $detail->json();
+        // Jika sinopsis kosong, coba ambil bahasa Inggris
+        if (empty(trim($detail['overview'] ?? ''))) {
 
+            $fallbackResponse = Http::get(
+                "https://api.themoviedb.org/3/{$request->type}/{$request->tmdb_id}",
+                [
+                    'api_key' => env('TMDB_API_KEY'),
+                    'language' => 'en-US',
+                ]
+            );
+
+            $fallbackMovie = $fallbackResponse->json();
+
+            $detail['overview'] = $fallbackMovie['overview'] ?? null;
+        }
+        // Jika masih kosong
+        if (empty(trim($detail['overview'] ?? ''))) {
+            $detail['overview'] = 'Sinopsis belum tersedia.';
+        }
         $credits = Http::get(
             "https://api.themoviedb.org/3/{$request->type}/{$request->tmdb_id}/credits",
             [

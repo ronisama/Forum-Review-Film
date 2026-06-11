@@ -49,6 +49,7 @@ class AdminArticleController extends Controller
                 'public'
             );
 
+
         $article = Article::create([
             'judul' => $validated['judul'],
             'gambar_cover' => $gambarCover,
@@ -57,6 +58,33 @@ class AdminArticleController extends Controller
             'isi_tengah' => $validated['isi_tengah'],
             'isi_akhir' => $validated['isi_akhir']
         ]);
+
+        // works di cpanel
+        // $coverFile = $request->file('gambar_cover');
+        // $coverName = time() . '_cover.' . $coverFile->getClientOriginalExtension();
+
+        // $coverFile->move(
+        //     $_SERVER['DOCUMENT_ROOT'] . '/articles',
+        //     $coverName
+        // );
+
+        // $tengahFile = $request->file('gambar_tengah');
+        // $tengahName = time() . '_tengah.' . $tengahFile->getClientOriginalExtension();
+
+        // $tengahFile->move(
+        //     $_SERVER['DOCUMENT_ROOT'] . '/articles',
+        //     $tengahName
+        // );
+
+
+        // $article = Article::create([
+        //     'judul' => $validated['judul'],
+        //     'gambar_cover' => $coverName,
+        //     'gambar_tengah' => $tengahName,
+        //     'isi_awal' => $validated['isi_awal'],
+        //     'isi_tengah' => $validated['isi_tengah'],
+        //     'isi_akhir' => $validated['isi_akhir']
+        // ]);
 
         $article->categories()->sync(
             $validated['categories']
@@ -114,8 +142,15 @@ class AdminArticleController extends Controller
                     'articles',
                     'public'
                 );
-        }
+            // $coverFile = $request->file('gambar_cover');
+            // $coverName = time() . '_cover.' . $coverFile->getClientOriginalExtension();
 
+            // $coverFile->move(
+            //     $_SERVER['DOCUMENT_ROOT'] . '/articles',
+            //     $coverName
+            // );
+            // $data['gambar_cover'] = $coverName;
+        }
         if ($request->hasFile('gambar_tengah')) {
 
             $data['gambar_tengah'] = $request
@@ -124,6 +159,13 @@ class AdminArticleController extends Controller
                     'articles',
                     'public'
                 );
+            // $tengahFile = $request->file('gambar_tengah');
+            // $tengahName = time() . '_tengah.' . $tengahFile->getClientOriginalExtension();
+
+            // $tengahFile->move(
+            //     $_SERVER['DOCUMENT_ROOT'] . '/articles',
+            //     $tengahName
+            // );
         }
 
         $article->update($data);

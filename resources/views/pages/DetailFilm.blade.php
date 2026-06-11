@@ -45,7 +45,7 @@
             <hr>
 
             <p class="font-color">
-                {{$film->sinopsis}}
+                {{ $film->sinopsis ?: 'Sinopsis belum tersedia.' }}
             </p>
             @if($director)
 

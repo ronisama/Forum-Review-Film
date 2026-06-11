@@ -97,7 +97,7 @@ class DashboradController extends Controller
             $filename = time() . '.' . $file->getClientOriginalExtension();
 
             $file->move(public_path('images'), $filename);
-
+            // $file->move($_SERVER['DOCUMENT_ROOT'].'/images', $filename);
             $user->foto_profil = $filename;
         }
         if ($request->hapus_foto) {

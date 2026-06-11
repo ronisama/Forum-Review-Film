@@ -93,7 +93,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     )->name('articles.store');
 
     Route::delete(
-        '/admin/articles/{id}',
+        '/admin/articles/{article}',
         [AdminArticleController::class, 'destroy']
     )->middleware(['auth', 'admin'])
         ->name('article.destroy');

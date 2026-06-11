@@ -127,7 +127,7 @@
                 <a href="/feeds/{{ $thread->id }}"
                    class="text-decoration-none text-white">
         
-                   <div class="glass-card-login p-3 mb-3">
+                <div class="glass-card-login p-3 mb-3">
 
                     <div class="d-flex justify-content-between align-items-start">
                 
@@ -148,7 +148,7 @@
                             </small>
                         
 
-                        @auth
+                            @auth
                             @if(Auth::user()->role === 'admin')
 
                             <form
@@ -175,7 +175,7 @@
 
                             @endif
                         @endauth
-                
+                        </div>
                     </div>
                 
                 </div>

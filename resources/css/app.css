@@ -464,3 +464,30 @@ hr {
 .order-2 {
     order: 2 !important;
 }
+
+@media (max-width: 767px) {
+
+    .login-page .row {
+        position: relative;
+        min-height: 100vh;
+    }
+
+    .login-carousel {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .login-form-wrapper {
+        position: relative;
+        z-index: 2;
+        min-height: 100vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: rgba(0,0,0,.45);
+    }
+}

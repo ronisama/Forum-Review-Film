@@ -1,11 +1,11 @@
 @extends('mainlayout')
 
 @section('maincontent')
-<div class="container-fluid overflow-hidden">
+<div class="container-fluid overflow-hidden login-page">
     <div class="row vh-100">
 
-        <!-- KIRI: CAROUSEL -->
-        <section class="col-md-6 p-0 vh-100">
+        <!-- KIRI: CAROUSEL BAWAH KALAU MOBILE-->
+        <section class="col-md-6 p-0 vh-100  login-carousel">
 
             <div id="heroCarousel"
                  class="carousel slide h-100"
@@ -25,8 +25,8 @@
 
         </section>
 
-        <!-- KANAN: LOGIN -->
-        <section class="col-md-6 d-flex align-items-center justify-content-center">
+        <!-- KANAN: LOGIN, ATAS KALAU MOBILE-->
+        <section class="col-md-6 d-flex align-items-center justify-content-center login-form-wrapper">
             
             <form method="POST" action="/login" class="glass-card-login">
                 @csrf
