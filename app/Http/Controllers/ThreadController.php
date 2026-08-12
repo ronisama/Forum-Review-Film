@@ -21,35 +21,38 @@ class ThreadController extends Controller
             ->genres
             ->pluck('pivot.score', 'id');
 
+        $allGenres = Genre::all();
+
         $recommendedThreads = Thread::with([
             'user',
             'film.genres'
-        ])
-            ->get();
+        ])->get();
+
         $tab = request('tab', 'recommend');
+
         foreach ($recommendedThreads as $thread) {
 
             $dotProduct = 0;
             $userMagnitude = 0;
             $threadMagnitude = 0;
 
-            foreach ($userGenres as $genreId => $score) {
+            foreach ($allGenres as $genre) {
 
-                $userMagnitude += pow($score, 2);
+                $genreId = $genre->id;
 
-                $threadHasGenre = $thread
+                $userScore = $userGenres[$genreId] ?? 0;
+
+                $threadScore = $thread
                     ->film
                     ->genres
                     ->contains('id', $genreId)
                     ? 1
                     : 0;
 
-                $dotProduct += $score * $threadHasGenre;
+                $dotProduct += $userScore * $threadScore;
 
-                $threadMagnitude += pow(
-                    $threadHasGenre,
-                    2
-                );
+                $userMagnitude += pow($userScore, 2);
+                $threadMagnitude += pow($threadScore, 2);
             }
 
             $userMagnitude = sqrt($userMagnitude);
@@ -59,19 +62,19 @@ class ThreadController extends Controller
                 ($userMagnitude > 0 && $threadMagnitude > 0)
                 ? $dotProduct / ($userMagnitude * $threadMagnitude)
                 : 0;
+
             $freshnessScore = $thread->created_at->timestamp / time();
 
             $thread->finalScore =
                 ($thread->similarity * 0.8)
-                +
-                ($freshnessScore * 0.2);
+                + ($freshnessScore * 0.2);
         }
 
         $recommendedThreads = $recommendedThreads
             ->sortByDesc('finalScore')
             ->values();
-        $currentPage = request()->get('page', 1);
 
+        $currentPage = request()->get('page', 1);
         $perPage = 4;
 
         $recommendedThreads = new LengthAwarePaginator(
@@ -83,12 +86,14 @@ class ThreadController extends Controller
                 'path' => request()->url()
             ]
         );
+
         $latestThreads = Thread::with([
             'user',
             'film'
         ])
             ->latest()
             ->paginate(5);
+
         return view('pages.FeedsFilm', [
             'tab' => $tab,
             'userGenres' => $userGenres,

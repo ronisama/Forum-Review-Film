@@ -63,8 +63,8 @@ class FilmController extends Controller
                     'api_key' => env('TMDB_API_KEY')
                 ]
             )->json();
-            $director = collect($credits['crew'])
-                ->firstWhere('job', 'Director');
+            $director = collect($credits['crew'] ?? [])
+                ->firstWhere('job', 'Director')['name'] ?? null;
 
             $videos = Http::get(
                 "https://api.themoviedb.org/3/movie/{$film->tmdb_id}/videos",

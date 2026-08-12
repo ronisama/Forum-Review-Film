@@ -5,7 +5,7 @@
 
         <!-- LEFT: LOGO -->
         <a href="{{ url('/') }}" class="navbar-logo">
-            <img src="{{ asset('images/frf.png') }}" alt="logo">
+            <img src="{{ asset('images/logo frf v2.png') }}" alt="logo">
         </a>
 
         <!-- RIGHT SECTION WRAPPER -->

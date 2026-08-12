@@ -85,22 +85,25 @@
                                 placeholder="Apa yang ingin kamu bahas hari ini?"></textarea>
                 
                             <div class="d-flex justify-content-between mt-3">
-            
-                                <select
+                                <p class="w-75 mx-md-0 mx-3 mb-4">Pilih Film :
+                                    <select
                                     name="film_id"
-                                    class="w-75 mx-md-0 mx-3 mb-4"
                                     id="filmSelect">
-            
+                                
                                     @foreach($films->sortBy('nama_film') as $film)
-            
-                                        <option value="{{ $film->id }}">
-                                            {{ $film->nama_film }} - {{$film->release_year}}
+                                
+                                        <option
+                                            value="{{ $film->id }}"
+                                            {{ request('film_id') == $film->id ? 'selected' : '' }}>
+                                
+                                            {{ $film->nama_film }} - {{ $film->release_year }}
+                                
                                         </option>
-            
+                                
                                     @endforeach
-            
+                                
                                 </select>
-            
+                                </p>
                                 <button
                                     class="btn btn-primary h-100">
             

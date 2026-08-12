@@ -4,7 +4,7 @@
 
 <div class="container mt-5 pt-5">
 
-    <h2 class="font-color">Cari Film dari TMDB</h2>
+    <h2 class="font-color pt-5">Cari Film dari TMDB</h2>
     @if(session('success'))
 
                             <div class="alert alert-success">

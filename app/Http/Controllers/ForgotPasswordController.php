@@ -60,7 +60,7 @@ class ForgotPasswordController extends Controller
 
         return back()->with(
             'success',
-            'Link reset telah dikirim'
+            'Link reset telah dikirim, cek email, kalau di tab email utama tidak muncul coba buka spam'
         );
     }
 }

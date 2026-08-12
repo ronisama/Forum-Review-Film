@@ -38,7 +38,11 @@
                     type="email"
                     name="email"
                     placeholder="Masukkan email">
-            
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                 <button class="btn btn-primary w-100" type="submit">Kirim Link Reset</button>
                 
             </form>

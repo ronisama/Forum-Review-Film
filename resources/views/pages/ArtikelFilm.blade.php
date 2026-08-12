@@ -52,7 +52,7 @@
                                     value="{{ $category->id }}"
                                     {{ request('category_radio') == $category->id ? 'checked' : '' }}>
                              
-                                <label for="category {{$category->id}}"class="form-check-label font-color">
+                                <label for="category{{$category->id}}"class="form-check-label font-color">
                                     
                                     {{ $category->nama_kategori }}
                                     

@@ -9,7 +9,7 @@
 
         
 
-            @foreach ($films as $key => $film)
+            @foreach ($trendingFilms as $key => $film)
         
                 <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
 
@@ -80,12 +80,18 @@ poster list ke kanan atau kebawah 5 atau 6 film untuk film yang sedang tayang
     </div>
 
     <div class="movie-scroll">
-        @foreach ($films as $key => $film)
+        @foreach ($trendingFilms as $key => $film)
         <!-- CARD -->
             <div class="movie-card">
-                <a href="{{ url('/listFilm/' . $film->id) }}">
+                <a href="{{ url('/listFilm/' . $film->id) }}" class="text-decoration-none">
                     <img src="https://image.tmdb.org/t/p/original{{ $film->poster }}">
                     <h6>{{ $film->judul }}</h6>
+                    <div class="movie-info ms-2 font-color">
+                        <h6>{{ Str::limit($film->nama_film, 30) }}</h6>
+                        <small>
+                            {{ $film->release_year }} • {{ $film->type }}
+                        </small>
+                    </div>
                 </a>
             </div>
         @endforeach  

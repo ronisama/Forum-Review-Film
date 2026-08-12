@@ -183,7 +183,7 @@
                 @endempty
             </div>
             <div class="mt-4">
-                {{ $films->appends(request()->query())->links() }}
+                {{ $films->appends(request()->query())->onEachSide(5)->links() }}
             </div>
         </div>
 

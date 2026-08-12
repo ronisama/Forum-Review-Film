@@ -153,8 +153,13 @@
         <input type="password"
                 name="password"
                 class="form-control mb-2 custom-input"
-                placeholder="masukkan password">
-
+                placeholder="masukkan password"
+                required>
+        @error('password')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+            @enderror
         <button class="btn btn-danger">
             <i class="bi bi-box-arrow-right"></i>
             Hapus Akun

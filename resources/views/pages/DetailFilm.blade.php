@@ -138,6 +138,14 @@
             </div>
 
     @endif --}}
+    <h3 class="font-color">Thread Film ini sebanyak {{ $threads->count() }} 
+        <button class="btn btn-primary">
+            <i class="bi bi-box-arrow-up-right"></i>
+            <a href="/feeds?film_id={{ $film->id }}" class="text-decoration-none text-white">
+                buat Thread tentang film ini
+            </a>
+        </button>
+    </h3>
     <h3 class="font-color">Diskusi Tentang Film Ini</h3>
     {{-- foreach thread--}}
     @forelse($threads as $thread)
