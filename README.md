@@ -120,6 +120,10 @@ Berikut merupakan penjelasan relasi utama antar tabel pada aplikasi Forum Review
 7. Users – Notifications (One-to-Many)
    Satu pengguna dapat menerima banyak notifikasi melalui tabel `notifications`.
 
+<h3>Entity Relationship Diagram</h3>
+
+<img src="database-erd.png" width="100%">
+
 ### 5. Generate Application Key
 
 Jalankan:
