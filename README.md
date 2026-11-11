@@ -1,58 +1,214 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎬 Forum Review Film
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Website Forum Review Film merupakan platform diskusi berbasis web yang memungkinkan pengguna mencari film, membuat thread, memberikan komentar, dan berdiskusi berdasarkan film yang diminati.
 
-## About Laravel
+Aplikasi ini dilengkapi dengan sistem rekomendasi film menggunakan algoritma **Content-Based Filtering**, yang memberikan rekomendasi berdasarkan preferensi genre dan interaksi pengguna.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Autentikasi Pengguna** — Registrasi dan login pengguna.
+- **Daftar Film** — Menampilkan informasi dan katalog film.
+- **Forum Diskusi** — Membuat thread diskusi berdasarkan film.
+- **Komentar** — Memberikan komentar dan membalas komentar pengguna lain.
+- **Profil Pengguna** — Mengelola informasi dan foto profil.
+- **Rekomendasi Film** — Memberikan rekomendasi film menggunakan algoritma Content-Based Filtering berdasarkan preferensi genre pengguna.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠️ Teknologi yang Digunakan
 
-## Learning Laravel
+- PHP 8.3 atau lebih baru
+- Laravel 13
+- MySQL
+- HTML, CSS, JavaScript
+- Bootstrap
+- Bootstrap Icons
+- Vite
+- TMDB API (buat akun dan generate API di website https://www.themoviedb.org)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 📋 Persyaratan Instalasi
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Pastikan perangkat sudah memiliki:
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- PHP 8.3+
+- Composer
+- Node.js dan NPM
+- MySQL atau MariaDB
+- Git
 
-## Agentic Development
+## 🚀 Cara Instalasi
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Ikuti langkah-langkah berikut untuk menjalankan project secara lokal.
+
+### 1. Clone Repository
+
+Buka terminal atau command prompt, kemudian jalankan:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/USERNAME/REPOSITORY.git
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Masuk ke direktori project:
 
-## Contributing
+```bash
+cd REPOSITORY
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Ganti `USERNAME` dan `REPOSITORY` sesuai alamat repository GitHub.
 
-## Code of Conduct
+### 2. Install Dependency Laravel
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Jalankan perintah berikut:
 
-## Security Vulnerabilities
+```bash
+composer install
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3. Konfigurasi Environment
 
-## License
+Salin file `.env.example` menjadi `.env`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Windows:
+
+```bash
+copy .env.example .env
+```
+
+Linux / macOS:
+
+```bash
+cp .env.example .env
+```
+
+### 4. Konfigurasi Database
+
+Buat database baru melalui MySQL atau phpMyAdmin.
+
+Kemudian sesuaikan konfigurasi database pada file `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=forum_review_film
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Sesuaikan nama database, username, dan password dengan konfigurasi MySQL pada perangkat masing-masing. berikut struktur databasenya.
+
+### Database Relationships
+
+Berikut merupakan penjelasan relasi utama antar tabel pada aplikasi Forum Review Film:
+
+1. Users – Threads (One-to-Many)  
+   Satu pengguna dapat membuat banyak thread diskusi, sedangkan setiap thread dimiliki oleh satu pengguna.
+
+2. Users – Komentars (One-to-Many)
+   Satu pengguna dapat memberikan banyak komentar pada thread diskusi.
+
+3. Threads – Komentars (One-to-Many)
+   Satu thread dapat memiliki banyak komentar. Tabel `komentars` juga mendukung komentar bertingkat melalui kolom `parent_id`, sehingga pengguna dapat membalas komentar lainnya.
+
+4. Films – Genres (Many-to-Many)
+   Satu film dapat memiliki beberapa genre, dan satu genre dapat dimiliki oleh banyak film. Relasi ini dikelola melalui tabel pivot `film_genre`.
+
+5. Users – Genres (Many-to-Many)  
+   Pengguna dapat memiliki beberapa preferensi genre. Relasi ini dikelola melalui tabel pivot `user_genre` yang juga menyimpan nilai `score` sebagai bobot preferensi genre pengguna.
+
+6. Films – Threads (One-to-Many)  
+   Satu film dapat memiliki banyak thread diskusi, sedangkan setiap thread dikaitkan dengan satu film.
+
+7. Users – Notifications (One-to-Many)
+   Satu pengguna dapat menerima banyak notifikasi melalui tabel `notifications`.
+
+### 5. Generate Application Key
+
+Jalankan:
+
+```bash
+php artisan key:generate
+```
+
+### 6. Migrasi Database
+
+Jalankan perintah:
+
+```bash
+php artisan migrate
+```
+
+Jika project menyediakan seeder dan membutuhkan data awal, jalankan:
+
+```bash
+php artisan db:seed
+```
+
+### 7. Install Dependency Frontend
+
+Jalankan:
+
+```bash
+npm install
+```
+
+Kemudian build asset frontend:
+
+```bash
+npm run build
+```
+
+### 8. Konfigurasi Storage
+
+Jalankan perintah berikut agar file yang disimpan melalui Laravel Storage dapat diakses secara publik:
+
+```bash
+php artisan storage:link
+```
+
+### 9. Jalankan Aplikasi
+
+Jalankan server Laravel:
+
+```bash
+php artisan serve
+```
+
+Buka browser dan akses:
+
+```text
+http://127.0.0.1:8000
+```
+
+Project sekarang dapat dijalankan secara lokal.
+
+## 💡 Pengembangan
+
+Jika ingin menjalankan aplikasi dalam mode development, gunakan dua terminal.
+
+Terminal pertama:
+
+```bash
+php artisan serve
+```
+
+Terminal kedua:
+
+```bash
+npm run dev
+```
+
+## 📝 Catatan
+
+- Pastikan konfigurasi `.env` sudah sesuai dengan lingkungan lokal.
+- Jangan membagikan file `.env` karena dapat berisi informasi sensitif.
+- Jika aplikasi menggunakan TMDB API, sesuaikan konfigurasi API key berdasarkan kebutuhan project.
+- Pastikan database sudah dibuat sebelum menjalankan migration.
+- Periksa file `database/seeders` jika aplikasi membutuhkan data awal.
+
+## 📄 Lisensi
+
+Project ini menggunakan lisensi MIT. Silakan lihat file `LICENSE` untuk informasi lebih lanjut mengenai ketentuan penggunaan, modifikasi, dan distribusi project.
+
+---
+
+**Developed as a Final Project (Skripsi)**  
+Website Forum Review Film dengan Algoritma Content-Based Filtering.
