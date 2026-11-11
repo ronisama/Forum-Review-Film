@@ -212,6 +212,17 @@ npm run dev
 
 Project ini menggunakan lisensi MIT. Silakan lihat file `LICENSE` untuk informasi lebih lanjut mengenai ketentuan penggunaan, modifikasi, dan distribusi project.
 
+Copyright (c) 2026 RONI ISA MAHENDRA
+
+All Rights Reserved.
+
+This repository and its source code are provided for portfolio and educational review purposes only.
+
+No permission is granted to copy, reproduce, modify, distribute, publish, sublicense, or use any part of this project for commercial or other purposes without prior written permission from the copyright holder.
+
+Viewing the source code for evaluation and recruitment purposes is permitted.
+
+For permission requests, please contact the copyright holder.
 ---
 
 **Developed as a Final Project (Skripsi)**  
