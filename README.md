@@ -4,6 +4,14 @@ Website Forum Review Film merupakan platform diskusi berbasis web yang memungkin
 
 Aplikasi ini dilengkapi dengan sistem rekomendasi film menggunakan algoritma **Content-Based Filtering**, yang memberikan rekomendasi berdasarkan preferensi genre dan interaksi pengguna.
 
+<h3>HALAMAN WEBSITE</h3>
+
+<img src="login.png" width="100%">
+
+<img src="list.png" width="100%">
+
+<img src="thread.png" width="100%">
+
 ## ✨ Fitur Utama
 
 - **Autentikasi Pengguna** — Registrasi dan login pengguna.
